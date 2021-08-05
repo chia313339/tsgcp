@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="shortcut icon" href="{{ url_for('static', filename='/dist/img/logo.png') }}" type="image/x-icon"/>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='plugins/fontawesome-free/css/all.min.css') }}">
+  <!-- IonIcons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Theme style -->
+  <!-- <link rel="stylesheet" href="{{ url_for('static', filename='dist/css/adminlte.min.css') }}"> -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/css/adminlte.min.css">
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+  <script src="{{ url_for('static', filename='dist/js/echarts.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='dist/js/echarts.js') }}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
+</head>
+<body>
+    <h1>這個是測試網頁</h1>
+    <div>
+        <p>我們來測試吧</p>
+    </div>
+
+    <div id="stock_price_plot_data" style="width: 400px;height:400px;margin:auto" >
+        <!-- {{test_plot|safe}} -->
+
+    </div>
+
+    <div id="main2" style="width: 300px;height:400px;">
+
+    </div>
+
+    <script>
+        let myChart = echarts.init(document.getElementById('stock_price_plot_data'));
+        myChart.setOption({{test_plot|safe}});
+
+        var myChart2 = echarts.init(document.getElementById('main2'));
+        myChart2.setOption({{ bar_data | safe }});
+    </script>
+
+</body>
+</html>

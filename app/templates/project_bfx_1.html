@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+{% set open_page = "project_bfx" %}
+{% set active_page = "project_bfx_1" %}
+{% block content %}
+
+
+  <div class="content-wrapper" id = "wrapper_page">
+
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">BFX 專案及環境</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item active"></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.content-header -->
+
+    <!-- news -->
+    <div class="content">
+      <div class="container-fluid">
+
+        <!-- 區塊一 -->
+        <!-- Overview -->
+        <div class="card card-default">
+          <div class="card-header">
+            <h2 class="card-title" style="font-weight: bold; color:#00B050;">Overview</h2>
+          </div>
+          <div class="card-body">
+            <nav>
+              <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#nav-dec" type="button" role="tab" aria-controls="nav-dec" aria-selected="true">Description</button>
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-eva" type="button" role="tab" aria-controls="nav-eva" aria-selected="false">Evaluation</button>
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-sub" type="button" role="tab" aria-controls="nav-sub" aria-selected="false">Submission Instructions</button>
+              </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+              <div class="tab-pane fade show active" id="nav-dec" role="tabpanel" aria-labelledby="nav-dec-tab">
+                <div style="padding: 10px;">
+                  <h4 id="-">需求說明</h4>
+                  <p>說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                  <br>
+                  <h4 id="-">資料敘述</h4>
+                  <p>說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                  <ul>
+                  <li>說明文字說明文字說明文字</li>
+                  <li>說明文字說明文字說明文字說明文字說明文字</li>
+                  <li>說明文字說明文字說明文字說明文字</li>
+                  </ul>
+                  <br>
+                  <h4 id="-">補充</h4>
+                  <p>說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="nav-eva" role="tabpanel" aria-labelledby="nav-eva-tab">
+                <div style="padding: 10px;">
+                  <h4 id="-">驗測標準</h4>
+                  <p>AUC囉，詳細請參考<a href="https://zh.wikipedia.org/wiki/ROC%E6%9B%B2%E7%BA%BF" target="_blank">這邊</a>。</p>
+                  <br>
+                  <h4 id="-">其他說明</h4>
+                  <p>說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="nav-sub" role="tabpanel" aria-labelledby="nav-sub-tab">
+                <div style="padding: 10px;">
+                  <p>上傳請根據附件 sample_submission.csv 上傳成果。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 區塊二 -->
+        <!-- 附件區 -->
+        <div class="card card-default">
+          <div class="card-header">
+            <h2 class="card-title" style="font-weight: bold; color:#00B050;">附件區</h2>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <tr>
+                  <th>training_data.csv</th>
+                  <td>10GB</td>
+                  <td style="width:50%">訓練資料</td>
+                  <td><button type="button" class="btn btn-primary float-right" style="margin-right:"><i class="fas fa-download"></i></button></td>
+                </tr>
+                <tr>
+                  <th>testing_data.csv</th>
+                  <td>200MB</td>
+                  <td>驗冊資料</td>
+                  <td><button type="button" class="btn btn-primary float-right" style="margin-right:"><i class="fas fa-download"></i></button></td>
+                </tr>
+                <tr>
+                  <th>說明文件.xlsx</th>
+                  <td>20MB</td>
+                  <td>說明文件</td>
+                  <td><button type="button" class="btn btn-primary float-right" style="margin-right:"><i class="fas fa-download"></i></button></td>
+                </tr>
+              </table>
+              <button type="button" class="btn btn-info float-right">Download All</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 區塊三 -->
+        <!-- 開發環境 -->
+        <div class="card card-default">
+          <div class="card-header">
+            <h2 class="card-title" style="font-weight: bold; color:#00B050;">開發環境</h2>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-hover text-nowrap">
+                <thead>
+                  <tr>
+                    <th>NO</th>
+                    <th>建立者</th>
+                    <th>建立日期</th>
+                    <th style="width:40%">團隊成員</th>
+                    <th>環境狀態</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>1</th>
+                    <th>日月學</th>
+                    <th>2021-05-01</th>
+                    <th>凱平</th>
+                    <th><span class="badge bg-success">work</span></th>
+                    <th>
+                      <button type="button" class="btn btn-primary btn-sm">Notebook</button>
+                      <button type="button" class="btn btn-info btn-sm">View</button>
+                      <button type="button" class="btn btn-danger btn-sm">Stop</button>
+                    </th>
+                  </tr>
+                  <tr>
+                    <th>2</th>
+                    <th>QQCAT</th>
+                    <th>2021-05-01</th>
+                    <th>風險組成員</th>
+                    <th><span class="badge bg-success">work</span></th>
+                    <th>
+                      <button type="button" class="btn btn-primary btn-sm">Notebook</button>
+                      <button type="button" class="btn btn-info btn-sm">View</button>
+                      <button type="button" class="btn btn-danger btn-sm">Stop</button>
+                    </th>
+                  </tr>
+                  <tr>
+                    <th>3</th>
+                    <th>暖男</th>
+                    <th>2021-05-01</th>
+                    <th>立諭與他的快樂夥伴</th>
+                    <th><span class="badge bg-dark">sleep</span></th>
+                    <th>
+                      <button type="button" class="btn btn-primary btn-sm">Notebook</button>
+                      <button type="button" class="btn btn-info btn-sm">View</button>
+                      <button type="button" class="btn btn-success btn-sm">Start</button>
+                    </th>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        
+
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+  </div> <!-- /.content-wrapper -->
+
+
+
+  {% endblock %}
