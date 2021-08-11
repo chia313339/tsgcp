@@ -35,41 +35,51 @@
           <div class="card-body">
             <nav>
               <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#nav-dec" type="button" role="tab" aria-controls="nav-dec" aria-selected="true">Description</button>
-                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-eva" type="button" role="tab" aria-controls="nav-eva" aria-selected="false">Evaluation</button>
-                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-sub" type="button" role="tab" aria-controls="nav-sub" aria-selected="false">Submission Instructions</button>
+                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#nav-dec" type="button" role="tab" aria-controls="nav-dec" aria-selected="true" style="color:cadetblue">Description</button>
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-eva" type="button" role="tab" aria-controls="nav-eva" aria-selected="false" style="color:cadetblue">Evaluation</button>
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-sub" type="button" role="tab" aria-controls="nav-sub" aria-selected="false" style="color:cadetblue">Submission Instructions</button>
               </div>
             </nav>
             <div class="tab-content" id="nav-tabContent">
               <div class="tab-pane fade show active" id="nav-dec" role="tabpanel" aria-labelledby="nav-dec-tab">
                 <div style="padding: 10px;">
                   <h4 id="-">需求說明</h4>
-                  <p>說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                  <li>用理賠X光骨折(Bone Fracture X-ray)POC案的影像，內部作一版模型。</li>
+                  <li>嘗試的成果與困難皆可回饋理賠，協助判斷POC案成效。</li>
+                  <li>同時提升部門對影像辨識、環境建置與驗測流程的能力。</li>
                   <br>
                   <h4 id="-">資料敘述</h4>
-                  <p>說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
-                  <ul>
-                  <li>說明文字說明文字說明文字</li>
-                  <li>說明文字說明文字說明文字說明文字說明文字</li>
-                  <li>說明文字說明文字說明文字說明文字</li>
-                  </ul>
+                  <p>資料主要有 Dicom 及 Array 兩類：</p>
+                  <a href="{{ url_for('static', filename='page/project_bfx/img/bfx_1.png')}}" class="example-image-link" data-lightbox="example-set" style="padding: 2px;"><img src="{{ url_for('static', filename='page/project_bfx/img/bfx_1.png')}}" width="500"></a>
+                  <a href="{{ url_for('static', filename='page/project_bfx/img/bfx_2.png')}}" class="example-image-link" data-lightbox="example-set" style="padding: 2px;"><img src="{{ url_for('static', filename='page/project_bfx/img/bfx_2.png')}}" width="500"></a>
+                  <a href="{{ url_for('static', filename='page/project_bfx/img/bfx_4.jpg')}}" class="example-image-link" data-lightbox="example-set" style="padding: 2px;"><img src="{{ url_for('static', filename='page/project_bfx/img/bfx_4.jpg')}}" width="500"></a>
                   <br>
-                  <h4 id="-">補充</h4>
-                  <p>說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                  <br>
+                  <h4 id="-">環境說明</h4>
+                  <ol>
+                    <li>work資料夾內的東西是共用的</li>
+                    <li>程式碼建議放進9h資料夾內，避免遺失</li>
+                    <li>資料建議不要瘋狂複製，空間有限</li>
+                    <li>需要的套件直接在terminal pip install即可</li>
+                    <li>每個jupyter有專用的GPU，請科內自行協調資源使用</li>
+                    <li>如果特殊需求一定要自己一張GPU，請洽工程組</li>
+                    <li>Jupyter lab 有非常多插件，可以在左側的 extension manager 自行加入</li>
+                    <li>未盡事項請參考 jupyter 開發環境 work 資料夾內文件</li>
+                  </ol>
                 </div>
               </div>
               <div class="tab-pane fade" id="nav-eva" role="tabpanel" aria-labelledby="nav-eva-tab">
                 <div style="padding: 10px;">
                   <h4 id="-">驗測標準</h4>
-                  <p>AUC囉，詳細請參考<a href="https://zh.wikipedia.org/wiki/ROC%E6%9B%B2%E7%BA%BF" target="_blank">這邊</a>。</p>
+                  <p>請先參考下圖，詳細待公布。</p>
                   <br>
-                  <h4 id="-">其他說明</h4>
-                  <p>說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                  <a href="{{ url_for('static', filename='page/project_bfx/img/bfx_3.jpg')}}" class="example-image-link" data-lightbox="example-set" style="padding: 2px;"><img src="{{ url_for('static', filename='page/project_bfx/img/bfx_3.jpg')}}" width="500"></a>
+                  
                 </div>
               </div>
               <div class="tab-pane fade" id="nav-sub" role="tabpanel" aria-labelledby="nav-sub-tab">
                 <div style="padding: 10px;">
-                  <p>上傳請根據附件 sample_submission.csv 上傳成果。</p>
+                  <p>會要求檔名取叫 sample_submission.csv，詳細待公布。</p>
                 </div>
               </div>
             </div>
@@ -84,27 +94,34 @@
           </div>
           <div class="card-body">
             <div class="table-responsive">
+              <p>本次 dataset 極為龐大，建議使用下面提供的 jupyter 環境進行開發，若要下載請慎思。</p>
               <table class="table">
                 <tr>
-                  <th>training_data.csv</th>
-                  <td>10GB</td>
-                  <td style="width:50%">訓練資料</td>
-                  <td><button type="button" class="btn btn-primary float-right" style="margin-right:"><i class="fas fa-download"></i></button></td>
+                  <th>dicom.zip</th>
+                  <td>14.3GB</td>
+                  <td style="width:50%">dicom資料</td>
+                  <td><a href="https://storage.googleapis.com/treebucket2021/dicom.zip"><button type="button" class="btn btn-primary float-right" style="margin-right:"><i class="fas fa-download"></i></button></a></td>
                 </tr>
                 <tr>
-                  <th>testing_data.csv</th>
-                  <td>200MB</td>
-                  <td>驗冊資料</td>
-                  <td><button type="button" class="btn btn-primary float-right" style="margin-right:"><i class="fas fa-download"></i></button></td>
+                  <th>array.zip</th>
+                  <td>14.2GB</td>
+                  <td>array資料</td>
+                  <td><a href="https://storage.googleapis.com/treebucket2021/array.zip"><button type="button" class="btn btn-primary float-right" style="margin-right:"><i class="fas fa-download"></i></button></a></td>
                 </tr>
                 <tr>
-                  <th>說明文件.xlsx</th>
-                  <td>20MB</td>
-                  <td>說明文件</td>
-                  <td><button type="button" class="btn btn-primary float-right" style="margin-right:"><i class="fas fa-download"></i></button></td>
+                  <th>BFX_keys.csv</th>
+                  <td>663.6KB</td>
+                  <td>資料說明</td>
+                  <td><a href="https://storage.googleapis.com/treebucket2021/BFX_keys.csv"><button type="button" class="btn btn-primary float-right" style="margin-right:"><i class="fas fa-download"></i></button></a></td>
                 </tr>
+                <tr>
+                  <th>BFX_範例.ipynb</th>
+                  <td>163.4KB</td>
+                  <td>程式範例，記得絕對路徑要改一下</td>
+                  <td><a href="https://storage.googleapis.com/treebucket2021/BFX_%E7%AF%84%E4%BE%8B.ipynb"><button type="button" class="btn btn-primary float-right" style="margin-right:"><i class="fas fa-download"></i></button></a></td>
+                </tr>
+
               </table>
-              <button type="button" class="btn btn-info float-right">Download All</button>
             </div>
           </div>
         </div>
@@ -117,6 +134,7 @@
           </div>
           <div class="card-body">
             <div class="table-responsive">
+              <p>開發環境有獨立的GPU Tesla K80，請科內自行協調使用順序，密碼都是 gpu-jupyter，若有特殊需求要獨立環境，請洽工程組。</p>
               <table class="table table-hover text-nowrap">
                 <thead>
                   <tr>
@@ -131,40 +149,25 @@
                 <tbody>
                   <tr>
                     <th>1</th>
-                    <th>日月學</th>
-                    <th>2021-05-01</th>
-                    <th>凱平</th>
+                    <th>內湖金城武</th>
+                    <th>2021-08-10</th>
+                    <th>客智科all</th>
                     <th><span class="badge bg-success">work</span></th>
                     <th>
-                      <button type="button" class="btn btn-primary btn-sm">Notebook</button>
-                      <button type="button" class="btn btn-info btn-sm">View</button>
-                      <button type="button" class="btn btn-danger btn-sm">Stop</button>
+                      <a href="http://35.184.131.167:8001/" target="_blank"><button type="button" class="btn btn-primary btn-sm">Jupyter Lab</button></a>
                     </th>
                   </tr>
                   <tr>
                     <th>2</th>
-                    <th>QQCAT</th>
-                    <th>2021-05-01</th>
-                    <th>風險組成員</th>
+                    <th>內湖金城武</th>
+                    <th>2021-08-10</th>
+                    <th>商智科all</th>
                     <th><span class="badge bg-success">work</span></th>
                     <th>
-                      <button type="button" class="btn btn-primary btn-sm">Notebook</button>
-                      <button type="button" class="btn btn-info btn-sm">View</button>
-                      <button type="button" class="btn btn-danger btn-sm">Stop</button>
+                      <a href="http://35.184.131.167:8002/" target="_blank"><button type="button" class="btn btn-primary btn-sm">Jupyter Lab</button></a>
                     </th>
                   </tr>
-                  <tr>
-                    <th>3</th>
-                    <th>暖男</th>
-                    <th>2021-05-01</th>
-                    <th>立諭與他的快樂夥伴</th>
-                    <th><span class="badge bg-dark">sleep</span></th>
-                    <th>
-                      <button type="button" class="btn btn-primary btn-sm">Notebook</button>
-                      <button type="button" class="btn btn-info btn-sm">View</button>
-                      <button type="button" class="btn btn-success btn-sm">Start</button>
-                    </th>
-                  </tr>
+                  
                 </tbody>
               </table>
             </div>

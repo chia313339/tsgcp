@@ -15,6 +15,9 @@ def gitlab():
 def jira():
     return render_template('jira.html')
 
+def gather():
+    return render_template('gather.html')
+
 def hive():
     return render_template('hive.html')
 

@@ -16,6 +16,9 @@
   <!-- Theme style -->
   <!-- <link rel="stylesheet" href="{{ url_for('static', filename='dist/css/adminlte.min.css') }}"> -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/css/adminlte.min.css">
+  <!-- 圖片放大功能 -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='dist/css/lightbox.min.css') }}">
+  <script src="{{ url_for('static', filename='/dist/js/lightbox-plus-jquery.min.js') }}"></script>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
@@ -189,19 +192,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link {{ 'active' if active_page == 'folder' else '' }}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>共用資料夾</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="https://gather.town/app/Kfcmm6p8EEN5MwDm/cathaylife" target="_blank" class="nav-link {{ 'active' if active_page == 'gather' else '' }}">
+                <a href="{{ url_for('gather') }}" onclick="window.open('https://gather.town/app/Kfcmm6p8EEN5MwDm/cathaylife')" class="nav-link {{ 'active' if active_page == 'gather' else '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Gather 虛擬辦公室</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link {{ 'active' if active_page == 'dataflowchart' else '' }}">
+                <a href="http://10.95.42.31:8000" target="_blank" class="nav-link {{ 'active' if active_page == 'dataflowchart' else '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data Flow Chart</p>
                 </a>

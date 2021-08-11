@@ -8,6 +8,7 @@ def create_app():
     app.add_url_rule('/wiki', 'wiki', wiki, methods=['GET', 'POST'])
     app.add_url_rule('/gitlab', 'gitlab', gitlab, methods=['GET', 'POST'])
     app.add_url_rule('/jira', 'jira', jira, methods=['GET', 'POST'])
+    app.add_url_rule('/gather', 'gather', gather, methods=['GET', 'POST'])
     app.add_url_rule('/jupyter', 'jupyter', jupyter, methods=['GET', 'POST'])
     app.add_url_rule('/create_jupyter', 'create_jupyter', create_jupyter, methods=['GET', 'POST'])
     app.add_url_rule('/hive', 'hive', hive, methods=['GET', 'POST'])
