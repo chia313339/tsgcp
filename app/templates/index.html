@@ -119,97 +119,30 @@
               </div>
               <div class="card-body row">
                 <div class="col-md-6">
-                  <div>
-                    <p>
-                      <b style="padding-right: 10px;">2021-05-01</b>
-                      <a href="#" style="padding-right: 10px;">WIKI內容</a>
-                      <i style="color:#6e6e6e;">作者</i>
-                    </p>
-                  </div>
-                  <div>
-                    <p>
-                      <b style="padding-right: 10px;">2021-05-01</b>
-                      <a href="#" style="padding-right: 10px;">WIKI內容</a>
-                      <i style="color:#6e6e6e;">作者</i>
-                    </p>
-                  </div>
-                  <div>
-                    <p>
-                      <b style="padding-right: 10px;">2021-05-01</b>
-                      <a href="#" style="padding-right: 10px;">WIKI內容</a>
-                      <i style="color:#6e6e6e;">作者</i>
-                    </p>
-                  </div>
-                  <div>
-                    <p>
-                      <b style="padding-right: 10px;">2021-05-01</b>
-                      <a href="#" style="padding-right: 10px;">WIKI內容</a>
-                      <i style="color:#6e6e6e;">作者</i>
-                    </p>
-                  </div>
-                  <div>
-                    <p>
-                      <b style="padding-right: 10px;">2021-05-01</b>
-                      <a href="#" style="padding-right: 10px;">WIKI內容</a>
-                      <i style="color:#6e6e6e;">作者</i>
-                    </p>
-                  </div>
-                  <div>
-                    <p>
-                      <b style="padding-right: 10px;">2021-05-01</b>
-                      <a href="#" style="padding-right: 10px;">WIKI內容</a>
-                      <i style="color:#6e6e6e;">作者</i>
-                    </p>
-                  </div>
+                  {% for item in wiki[0:7] %}
+                    <div>
+                      <p>
+                        <b style="padding-right: 10px;">{{item.date}}</b>
+                        <a href="{{item.url}}" target="_blank" style="padding-right: 10px;">{{item.title}}</a>
+                        <i style="color:#6e6e6e;">{{item.user}}</i>
+                      </p>
+                    </div>
+                  {% endfor %}
                 </div>
-                
                 <div class="col-md-6">
-                  <div>
-                    <p>
-                      <b style="padding-right: 10px;">2021-05-01</b>
-                      <a href="#" style="padding-right: 10px;">WIKI內容</a>
-                      <i style="color:#6e6e6e;">作者</i>
-                    </p>
-                  </div>
-                  <div>
-                    <p>
-                      <b style="padding-right: 10px;">2021-05-01</b>
-                      <a href="#" style="padding-right: 10px;">WIKI內容</a>
-                      <i style="color:#6e6e6e;">作者</i>
-                    </p>
-                  </div>
-                  <div>
-                    <p>
-                      <b style="padding-right: 10px;">2021-05-01</b>
-                      <a href="#" style="padding-right: 10px;">WIKI內容</a>
-                      <i style="color:#6e6e6e;">作者</i>
-                    </p>
-                  </div>
-                  <div>
-                    <p>
-                      <b style="padding-right: 10px;">2021-05-01</b>
-                      <a href="#" style="padding-right: 10px;">WIKI內容</a>
-                      <i style="color:#6e6e6e;">作者</i>
-                    </p>
-                  </div>
-                  <div>
-                    <p>
-                      <b style="padding-right: 10px;">2021-05-01</b>
-                      <a href="#" style="padding-right: 10px;">WIKI內容</a>
-                      <i style="color:#6e6e6e;">作者</i>
-                    </p>
-                  </div>
-                  <div>
-                    <p>
-                      <b style="padding-right: 10px;">2021-05-01</b>
-                      <a href="#" style="padding-right: 10px;">WIKI內容</a>
-                      <i style="color:#6e6e6e;">作者</i>
-                    </p>
-                  </div>
+                  {% for item in wiki[7:14] %}
+                    <div>
+                      <p>
+                        <b style="padding-right: 10px;">{{item.date}}</b>
+                        <a href="{{item.url}}" target="_blank" style="padding-right: 10px;">{{item.title}}</a>
+                        <i style="color:#6e6e6e;">{{item.user}}</i>
+                      </p>
+                    </div>
+                  {% endfor %}
                 </div>
               </div>
               <div class="card-footer" style="text-align:right;">
-                <a href="#" style="color:#00B050;">More </a>
+                <a href="http://10.95.43.73:8001" target="_blank"  style="color:#00B050;">More </a>
               </div>
             </div>
           </div>

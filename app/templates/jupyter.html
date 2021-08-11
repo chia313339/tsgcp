@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+{% set open_page = "hap" %}
+{% set active_page = "jupyter" %}
+{% block content %}
+
+
+  <div class="content-wrapper" id = "wrapper_page">
+
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Hadoop Jupyter</h1>
+            <p style="color: gray;">
+              各科可以有共用的 Jupyter 環境進行開發，或是提簡覆表向工程組申請獨立的專案環境。<br>
+              獨立環境若太久沒使用可能會被停掉，將資源釋放給其他需要的專案。
+            </p>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item active"></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.content-header -->
+
+    <div class="content">
+      <div class="container-fluid">
+
+        <!-- 區塊一 -->
+        <!-- 公用區 -->
+        <div class="card card-default">
+          <div class="card-body">
+            <a
+              href="#"
+              class="btn btn-info btn-icon-split"
+              target="_blank"
+            >
+              <span class="icon text-white-50">
+                <i class="fas fa-code"></i>
+              </span>
+              <span class="text">數據經營部共用</span>
+            </a>
+            &emsp; 
+            <a
+              href="#"
+              class="btn btn-info btn-icon-split"
+              target="_blank"
+            >
+              <span class="icon text-white-50">
+                <i class="fas fa-code"></i>
+              </span>
+              <span class="text">客戶智能科共用</span>
+            </a>
+            &emsp; 
+            <a
+              href="#"
+              class="btn btn-info btn-icon-split"
+              target="_blank"
+            >
+              <span class="icon text-white-50">
+                <i class="fas fa-code"></i>
+
+              </span>
+              <span class="text">商業智能科共用</span>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          測試 {{username}}
+        </div>
+        
+        <!-- 區塊二 -->
+        <!-- 客製區 -->
+        <div class="card card-default">
+          <div class="card-header">
+            <h2 class="card-title" style="font-weight: bold; color:#00B050;">客製化環境列表</h2>
+          </div>
+          <div class="card-body">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">NO</th>
+                  <th scope="col">Project Name</th>
+                  <th scope="col">Owner</th>
+                  <th scope="col">Create Date</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>業務員標籤</td>
+                  <td>客戶智能科</td>
+                  <td>2021/05/03</td>
+                  <td>
+                    <button type="button" class="btn btn-info"><i class="fas fa-code"></i></button>
+                    <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button>
+                    <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
+                  <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td>風險分貼標</td>
+                  <td>商業智能科</td>
+                  <td>2021/05/16</td>
+                  <td>
+                    <button type="button" class="btn btn-info"><i class="fas fa-code"></i></button>
+                    <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button>
+                    <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
+                  <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td>國泰盾</td>
+                  <td>商業智能科</td>
+                  <td>2021/05/20</td>
+                  <td>
+                    <button type="button" class="btn btn-info"><i class="fas fa-code"></i></button>
+                    <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button>
+                    <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
+                  <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+  </div> <!-- /.content-wrapper -->
+
+
+
+  {% endblock %}

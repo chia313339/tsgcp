@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>TREESTUDIO</title>
 
-  <link rel="shortcut icon" href="{{ url_for('static', filename='/dist/img/logo.png') }}" type="image/x-icon"/>
+  <link rel="shortcut icon" href="{{ url_for('static', filename='/dist/img/logo.ico') }}" type="image/x-icon"/>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -149,7 +149,7 @@
 
           <!-- Wiki 知識庫 -->
           <li class="nav-item">
-            <a href="#" class="nav-link  {{ 'active' if active_page == 'wiki' else '' }}">
+            <a href="{{ url_for('wiki') }}" onclick="window.open('http://10.95.43.73:8001')" class="nav-link  {{ 'active' if active_page == 'wiki' else '' }}">
               <i class="nav-icon fab fa-wikipedia-w"></i>
               <p>
                 Wiki 知識庫
@@ -159,7 +159,7 @@
 
           <!-- GitLab -->
           <li class="nav-item">
-            <a href="#" class="nav-link  {{ 'active' if active_page == 'gitlab' else '' }}">
+            <a href="{{ url_for('gitlab') }}" onclick="window.open('http://10.95.43.74:8001')" class="nav-link  {{ 'active' if active_page == 'gitlab' else '' }}">
               <i class="nav-icon fab fa-gitlab"></i>
               <p>
                 GitLab
@@ -169,7 +169,7 @@
 
           <!-- Jira -->
           <li class="nav-item">
-            <a href="#" class="nav-link  {{ 'active' if active_page == 'jira' else '' }}">
+            <a href="{{ url_for('jira') }}" onclick="window.open('https://pm.cathaylife.com.tw/secure/Dashboard.jspa')" class="nav-link  {{ 'active' if active_page == 'jira' else '' }}">
               <i class="nav-icon fab fa-jira"></i>
               <p>
                 Jira
@@ -178,12 +178,12 @@
           </li>
 
 
-          <!-- 常用連結 -->
+          <!-- 常用連結及工具 -->
           <li class="nav-item {{ 'menu-open' if open_page == 'url' else '' }}">
             <a href="#" class="nav-link {{ 'active' if open_page == 'url' else '' }}">
               <i class="nav-icon fas fa-link"></i>
               <p>
-                常用連結
+                常用連結及工具
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -195,25 +195,11 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" target="_blank" class="nav-link {{ 'active' if active_page == 'vdi' else '' }}">
+                <a href="https://gather.town/app/Kfcmm6p8EEN5MwDm/cathaylife" target="_blank" class="nav-link {{ 'active' if active_page == 'gather' else '' }}">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>VDI檔案攜出</p>
+                  <p>Gather 虛擬辦公室</p>
                 </a>
               </li>
-            </ul>
-          </li>
-
-
-          <!-- 工具 -->
-          <li class="nav-item {{ 'menu-open' if open_page == 'tools' else '' }}">
-            <a href="#" class="nav-link {{ 'active' if open_page == 'tools' else '' }}">
-              <i class="nav-icon fas fa-drafting-compass"></i>
-              <p>
-                好用工具
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="#" class="nav-link {{ 'active' if active_page == 'dataflowchart' else '' }}">
                   <i class="far fa-circle nav-icon"></i>
@@ -235,6 +221,7 @@
             </ul>
           </li>
 
+
           <!-- HAP -->
           <li class="nav-item {{ 'menu-open' if open_page == 'hap' else '' }}">
             <a href="#" class="nav-link {{ 'active' if open_page == 'hap' else '' }}">
@@ -246,13 +233,19 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link {{ 'active' if active_page == 'high_list' else '' }}">
+                <a href="{{ url_for('jupyter') }}" class="nav-link {{ 'active' if active_page == 'jupyter' else '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Hadoop Jupyter</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url_for('hive') }}" class="nav-link {{ 'active' if active_page == 'hive' else '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Hive 資料查詢系統</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link {{ 'active' if active_page == 'treebel' else '' }}">
+                <a href="#" class="nav-link {{ 'active' if active_page == 'airflow' else '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Airflow 排程系統</p>
                 </a>
@@ -277,7 +270,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link {{ 'active' if active_page == 'project_bfx_2' else '' }}">
+                <a href="{{ url_for('project_bfx_2') }}" class="nav-link {{ 'active' if active_page == 'project_bfx_2' else '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Leaderboard</p>
                 </a>
@@ -302,7 +295,7 @@
 
           <!-- 系統設定 -->
           <li class="nav-item {{ 'menu-open' if open_page == 'system' else '' }}">
-            <a href="#" class="nav-link">
+            <a href="#" class="nav-link {{ 'active' if open_page == 'system' else '' }}">
               <i class="nav-icon fas fa-sliders-h"></i>
               <p>
                 系統相關
@@ -311,7 +304,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link {{ 'active' if active_page == 'ldap' else '' }}">
+                <a href="http://10.95.43.73:8004/" target="_blank" class="nav-link {{ 'active' if active_page == 'ldap' else '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>LDAP Admin</p>
                 </a>
@@ -320,6 +313,12 @@
                 <a href="#" class="nav-link {{ 'active' if active_page == 'pgadmin' else '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>pgAdmin</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url_for('create_jupyter') }}" class="nav-link {{ 'active' if active_page == 'create_jupyter' else '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>HAP Jupyter管理</p>
                 </a>
               </li>
             </ul>

@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+{% set open_page = "system" %}
+{% set active_page = "create_jupyter" %}
+{% block content %}
+
+
+  <div class="content-wrapper" id = "wrapper_page">
+
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">HAP Jupyter 管理系統</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item active"></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.content-header -->
+
+    <div class="content">
+      <div class="container-fluid">
+
+        <!-- 區塊一 -->
+        <!-- 新建Jupyter -->
+        <div class="card card-default">
+          <div class="card-header">
+            <h2 class="card-title" style="font-weight: bold; color:#00B050;">Create Jupyter</h2>
+          </div>
+          <div class="card-body">
+            <form action="#">
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label>申請單位</label>
+                    <select class="custom-select">
+                      <option>客戶智能科</option>
+                      <option>商業智能科</option>
+                      <option>數據經營部</option>
+                      <option>數據工程組</option>
+                      <option>其他</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label>申請人</label>
+                    <input type="text" class="form-control" placeholder="Name...">
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label>建立者</label>
+                    <input type="text" class="form-control" placeholder="Name...">
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label>預先安裝套件 (非必要)</label>
+                    <div class="custom-file">
+                     <input type="file" class="custom-file-input" id="requirement">
+                     <label class="custom-file-label" for="requirement">requirement.txt</label>
+                   </div>
+                 </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label>Core 數</label>
+                    <select class="custom-select">
+                      <option>2</option>
+                      <option>4</option>
+                      <option>8</option>
+                      <option>16</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label>Ram 大小</label>
+                    <select class="custom-select">
+                      <option>2</option>
+                      <option>4</option>
+                      <option>8</option>
+                      <option>16</option>
+                      <option>32</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    <label>其他註記</label>
+                    <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-success float-right">Submit</button>
+            </form>
+          </div>
+        </div>
+
+
+        <!-- 區塊二 -->
+        <!-- 客製區 -->
+        <div class="card card-default">
+          <div class="card-header">
+            <h2 class="card-title" style="font-weight: bold; color:#00B050;">環境列表</h2>
+          </div>
+          <div class="card-body">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">NO</th>
+                  <th scope="col">Project Name</th>
+                  <th scope="col">Owner</th>
+                  <th scope="col">Create Date</th>
+                  <th scope="col" style="width:40%">Description</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>業務員標籤</td>
+                  <td>客戶智能科</td>
+                  <td>2021/05/03</td>
+                  <td>空間想要大一點的</td>
+                  <td>
+                    <button type="button" class="btn btn-info"><i class="fas fa-code"></i></button>
+                    <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button>
+                    <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
+                  <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td>風險分貼標</td>
+                  <td>商業智能科</td>
+                  <td>2021/05/16</td>
+                  <td></td>
+                  <td>
+                    <button type="button" class="btn btn-info"><i class="fas fa-code"></i></button>
+                    <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button>
+                    <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
+                  <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td>國泰盾</td>
+                  <td>商業智能科</td>
+                  <td>2021/05/20</td>
+                  <td></td>
+                  <td>
+                    <button type="button" class="btn btn-info"><i class="fas fa-code"></i></button>
+                    <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button>
+                    <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
+                  <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+  </div> <!-- /.content-wrapper -->
+
+
+
+  {% endblock %}

@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+{% set open_page = "hap" %}
+{% set active_page = "hive" %}
+{% block content %}
+
+
+  <div class="content-wrapper" id = "wrapper_page">
+
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Hadoop 資料庫查詢系統</h1>
+            <p style="color: gray;">
+              查詢 Hadoop Hive 內的資料清單，及資料表的最新更新日期。
+            </p>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item active"></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.content-header -->
+
+    <div class="content">
+      <div class="container-fluid">
+
+        <!-- 區塊一 -->
+        <!-- Search -->
+        <div class="card card-default">
+          <div class="card-body">
+            <form action="#">
+              <div class="form-group row">
+                <div class="col-sm-2">
+                    <h4  class="m-0 font-weight-bolder" style="color: #00B050;">輸入資料表關鍵字</h4>
+                </div>
+                <div class="input-group col-sm-10">
+                  <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                      aria-label="Search" aria-describedby="basic-addon2">
+                  <div class="input-group-append">
+                      <button class="btn btn-primary" type="button">
+                          <i class="fas fa-search fa-sm"></i>
+                      </button>
+                  </div>
+              </div>
+            </div>
+            </form>
+          </div>
+        </div>
+        
+        <!-- 區塊二 -->
+        <!-- Tables -->
+        <div class="card card-default">
+          <div class="card-body">
+            <table id="example" class="table table-striped table-hover" style="width:100%">
+              <thead>
+                  <tr>
+                      <th>NO</th>
+                      <th>資料表名稱</th>
+                      <th>中文名稱</th>
+                      <th>更新頻率</th>
+                      <th>初始導入日期</th>
+                      <th>最後更新日期</th>
+                  </tr>
+              </thead>
+              <tbody>
+                <tr><td>1</td><td>ABT_DTA0X051</td><td>要被保人ABT</td><td>每兩周</td><td>2021/03/21</td><td>2021/06/27</td></tr>
+                <tr><td>2</td><td>AYPFM_DTAYPRM_AYMAN</td><td>展業核實實收保費</td><td>每兩周</td><td>2021/03/21</td><td>2021/06/27</td></tr>
+                <tr><td>3</td><td>DBAM_DTAMJ220_D</td><td>每日_銀行開戶明細</td><td>每兩周</td><td>2021/03/21</td><td>2021/06/27</td></tr>
+                <tr><td>4</td><td>DBAM_DTAMJ220_DC</td><td>當年度累積_銀行開戶明細</td><td>每兩周</td><td>2021/03/21</td><td>2021/06/27</td></tr>
+                <tr><td>5</td><td>DBAM_DTAMJ220_Y</td><td>歷年_銀行開戶明細</td><td>每兩周</td><td>2021/03/21</td><td>2021/06/27</td></tr>
+                <tr><td>6</td><td>DTA0_EMP_SCHOOL_DEGREE</td><td>學歷資料檔</td><td>每兩周</td><td>2021/03/21</td><td>2021/06/27</td></tr>
+                <tr><td>7</td><td>DTAAA001_Q</td><td>理賠受理檔</td><td>每兩周</td><td>2021/03/21</td><td>2021/06/27</td></tr>
+                <tr><td>8</td><td>DTAAA002</td><td>理賠案件處理過程批註檔</td><td>每兩周</td><td>2021/03/21</td><td>2021/06/27</td></tr>
+                <tr><td>9</td><td>DTAAA004</td><td>理賠簡易受理檢附文件檔</td><td>每兩周</td><td>2021/03/21</td><td>2021/06/27</td></tr>
+                <tr><td>10</td><td>DTAAA009</td><td>理賠簽擬歷程檔</td><td>每兩周</td><td>2021/03/21</td><td>2021/06/27</td></tr>
+                <tr><td>11</td><td>DTAAA010</td><td>理賠受理輸入申請書檔</td><td>每兩周</td><td>2021/03/21</td><td>2021/06/27</td></tr>
+                <tr><td>12</td><td>DTAAA011</td><td>理賠索賠類別檔</td><td>每兩周</td><td>2021/03/21</td><td>2021/06/27</td></tr>
+                <tr><td>13</td><td>DTAAA020_AE</td><td>理賠診斷書檔</td><td>每兩周</td><td>2021/03/21</td><td>2021/06/27</td></tr>
+                <tr><td>14</td><td>DTAAA021</td><td>理賠診斷書相關天數檔</td><td>每兩周</td><td>2021/03/21</td><td>2021/06/27</td></tr>
+                <tr><td>15</td><td>DTAAA030</td><td>理賠受理收據檔</td><td>每兩周</td><td>2021/03/21</td><td>2021/06/27</td></tr>
+                <tr><td>16</td><td>DTAAA040_AE</td><td>理賠受理大額給付檔_試算</td><td>每兩周</td><td>2021/03/21</td><td>2021/06/27</td></tr>
+                <tr><td>17</td><td>DTAAA100</td><td>跨區取件分派紀錄檔</td><td>每兩周</td><td>2021/03/21</td><td>2021/06/27</td></tr>
+                <tr><td>18</td><td>DTAAA151</td><td>ICD9模型導入歷史資料</td><td>每兩周</td><td>2021/03/21</td><td>2021/06/27</td></tr>
+                <tr><td>19</td><td>DTAAA152</td><td>ICD9模型重新訓練結果</td><td>每兩周</td><td>2021/03/21</td><td>2021/06/27</td></tr>
+                <tr><td>20</td><td>DTAAA153</td><td>NLP模型檔</td><td>每兩周</td><td>2021/03/21</td><td>2021/06/27</td></tr>
+                <tr><td>21</td><td>DTAAA153_OP</td><td>手術模型檔</td><td>每兩周</td><td>2021/03/21</td><td>2021/06/27</td></tr>
+                <tr><td>22</td><td>DTAAA154</td><td>手術模型導入歷史資料</td><td>每兩周</td><td>2021/03/21</td><td>2021/06/27</td></tr>
+                <tr><td>23</td><td>DTAAA210</td><td>理賠臨櫃受理申請書檔</td><td>每兩周</td><td>2021/03/21</td><td>2021/06/27</td></tr>
+                <tr><td>24</td><td>DTAAA210_LOG</td><td>理賠臨櫃受理申請書檔LOG</td><td>每兩周</td><td>2021/03/21</td><td>2021/06/27</td></tr>
+                <tr><td>25</td><td>DTAAA510</td><td>學團險線上填寫理賠申請書檔</td><td>每兩周</td><td>2021/03/21</td><td>2021/06/27</td></tr>
+                <tr><td>26</td><td>DTAAA702</td><td>公會轉收紀錄檔</td><td>每兩周</td><td>2021/03/21</td><td>2021/06/27</td></tr>
+                <tr><td>27</td><td>DTAAB001_Q</td><td>理賠紀錄檔</td><td>每兩周</td><td>2021/03/21</td><td>2021/06/27</td></tr>
+                <tr><td>28</td><td>DTAAB00DG_AE</td><td>理賠紀錄_DG</td><td>每兩周</td><td>2021/03/21</td><td>2021/06/27</td></tr>
+                <tr><td>29</td><td>DTAAB00DG_AE_UNPAY</td><td>理賠紀錄_DG_無給付</td><td>每兩周</td><td>2021/03/21</td><td>2021/06/27</td></tr>
+                <tr><td>30</td><td>DTAAB00D_AE_Q</td><td>理賠紀錄_D</td><td>每兩周</td><td>2021/03/21</td><td>2021/06/27</td></tr>
+                <tr><td>31</td><td>DTAAB00D_AE_UNPAY</td><td>理賠紀錄_D_無給付</td><td>每兩周</td><td>2021/03/21</td><td>2021/06/27</td></tr>
+                <tr><td>32</td><td>DTAAB00HG_AE</td><td>理賠紀錄_HG</td><td>每兩周</td><td>2021/03/21</td><td>2021/06/27</td></tr>
+                <tr><td>33</td><td>DTAAB00HG_AE_UNPAY</td><td>理賠紀錄_HG_無給付</td><td>每兩周</td><td>2021/03/21</td><td>2021/06/27</td></tr>
+                <tr><td>34</td><td>DTAAB00H_AE_Q</td><td>理賠紀錄_H</td><td>每兩周</td><td>2021/03/21</td><td>2021/06/27</td></tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <th>NO</th>
+                    <th>資料表名稱</th>
+                    <th>中文名稱</th>
+                    <th>更新頻率</th>
+                    <th>初始導入日期</th>
+                    <th>最後更新日期</th>
+                  </tr>
+              </tfoot>
+          </table>
+          </div>
+        </div>
+        
+
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+  </div> <!-- /.content-wrapper -->
+
+
+
+  {% endblock %}
