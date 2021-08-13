@@ -1,10 +1,26 @@
-from flask import render_template, redirect, url_for, request, send_from_directory, flash
+from flask import render_template, redirect, url_for, request, send_from_directory, flash, jsonify
 from flask import send_from_directory
+import pandas as pd
+import datetime
+import json
+import psycopg2
+import sqlalchemy
 from app.models.index import *
+from app.models.broadcast import *
+
+pgdb_config={
+'host':'34.135.113.78',
+'port':5432,
+'user':'treestudio',
+'password':'treestudio',
+'database':'treestudio',
+}
 
 def index():
     wiki = get_wiki_recentchange()
-    return render_template('index.html', wiki = wiki)
+    msg_board = get_message_board(pgdb_config)
+    broadcast_list = get_broadcast(pgdb_config)[0:5]
+    return render_template('index.html', wiki=wiki, msg_board=msg_board,broadcast_list=broadcast_list)
 
 def wiki():
     return render_template('wiki.html')
@@ -33,5 +49,76 @@ def project_bfx_2():
 def create_jupyter():
     return render_template('create_jupyter.html')
 
+def broadcast():
+    broadcast_list = get_broadcast(pgdb_config)
+    return render_template('broadcast.html',broadcast_list = broadcast_list)
+
 def page_not_found(e):
     return render_template('404.html'), 404
+
+
+def test():
+    return render_template('test.html')
+
+
+
+
+def simple_message_board():
+    conn = psycopg2.connect(**pgdb_config)
+    try:
+        with conn.cursor() as cursor:
+            now = datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")
+            data = json.loads(request.form.get('data'))
+            name = data['name']
+            message = data['message']
+            sql = '''INSERT INTO simple_message_board("name", "message", "datetime") VALUES (%s, %s, %s);'''
+            cursor.execute(sql,(name,message,now))
+        conn.commit()
+        return jsonify({"success": 200, "msg": "提交成功", "date":now})
+    finally:
+        conn.close()
+
+
+def broadcast_exec():
+    conn = psycopg2.connect(**pgdb_config)
+    data = json.loads(request.form.get('data'))
+    if data['action'] ==1:
+        try:
+            with conn.cursor() as cursor:
+                etl_date = data['date']
+                context = data['context']
+                url = data['url']
+                sql = '''INSERT INTO broadcast("title", "context", "url", "etl_date", del_flg) VALUES ('', %s, %s, %s, 0);'''
+                cursor.execute(sql,(context,url,etl_date))
+            conn.commit()
+            return jsonify({"success": 200, "msg": "提交成功"})
+        finally:
+            conn.close()
+    elif data['action']==2:
+        try:
+            with conn.cursor() as cursor:
+                no = str(data['broadcast_id'])
+                sql = '''UPDATE broadcast SET del_flg = 1 where no = %s;''' % no
+                cursor.execute(sql)
+            conn.commit()
+            return jsonify({"success": 200, "msg": "提交成功"})
+        finally:
+            conn.close()
+    elif data['action']==3:
+        print(data)
+        try:
+            with conn.cursor() as cursor:
+                no = str(data['broadcast_id'])
+                etl_date = data['date']
+                context = data['context']
+                url = data['url']
+                sql = '''UPDATE broadcast SET ("context", "url", "etl_date") = (%s, %s, %s) where no = %s;'''
+                cursor.execute(sql,(context,url,etl_date,no))
+            conn.commit()
+            return jsonify({"success": 200, "msg": "提交成功"})
+        finally:
+            conn.close()
+
+
+                
+

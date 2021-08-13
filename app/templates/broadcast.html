@@ -1,0 +1,256 @@
+{% extends "base.html" %}
+{% set open_page = "broadcast" %}
+{% set active_page = "broadcast" %}
+{% block content %}
+
+
+  <div class="content-wrapper" id = "wrapper_page">
+
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">公告系統</h1>
+            <p style="color: gray;">
+            </p>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item active"></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.content-header -->
+
+    <div class="content">
+      <div class="container-fluid">
+
+        <div id="successAlert" class="alert alert-success" role="alert" style="display:none;"></div>
+	      <div id="errorAlert" class="alert alert-danger" role="alert" style="display:none;"></div>
+
+        <!-- 區塊一 -->
+        <!-- 撰寫區 -->
+        <div class="card card-default">
+          <div class="card-header">
+            <h2 class="card-title" style="font-weight: bold; color:#00B050;">發布公告</h2>
+          </div>
+          <form action="" method="POST" id="new_broadcast"></form>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label>公告日期</label>
+                    <input type="date" class="form-control datetimepicker-input" id="broadcast_date" required>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label>相關URL (非必要)</label>
+                    <input type="text" class="form-control" placeholder="https://..." id="url">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>公告內容</label>
+                <textarea class="form-control" rows="5" placeholder="公告內容 ..." id="context"></textarea>
+              </div>
+            </div>
+            <div class="card-footer text-right">
+              <button type="submit" class="btn btn-primary" id="submit">Submit</button>
+            </div>
+          </form>
+          
+        </div>
+        
+        <!-- 區塊二 -->
+        <!-- 公告區 -->
+        <div class="card card-default">
+          <div class="card-header">
+            <h2 class="card-title" style="font-weight: bold; color:#00B050;">公告列表</h2>
+          </div>
+          <div class="card-body">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">日期</th>
+                  <th scope="col" style="width:70%;">內容</th>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody id="broadcast_list">
+                {% for item in broadcast_list %}
+                <tr id="item_{{item[0]}}">
+                  <th>{{item[4]}}</td>
+                  <td>{{item[2]}}
+                    {% if item[3] != '' %}
+                    &nbsp;&nbsp;<a href="{{item[3]}}" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+                    {% endif %}
+                  </td>
+                  <td><button type="button" class="btn btn-block btn-success btn-sm" onclick="edit_broadcast({{item[0]}},'{{item[2]}}','{{item[3]}}','{{item[4]}}')"><i class="fas fa-pen"></i></button></td>
+                  <td><button type="button" class="btn btn-block btn-danger btn-sm" onclick="del_broadcast({{item[0]}})"><i class="fas fa-trash-alt"></i></button></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+
+      </div>
+    </div>
+
+
+
+
+
+
+
+  </div> <!-- /.content-wrapper -->
+
+
+
+
+
+  <script>
+    // 新增資料
+    $('#submit').click(function(){
+      var broadcast_date = $('#broadcast_date').val();
+      var context = $('#context').val();
+      var url = $('#url').val();
+      if(broadcast_date===''|context===''){
+        $('#errorAlert').text("送出失敗，可能內容有誤").show();
+        $('#successAlert').hide();
+      }
+      else{
+        var data = {
+        data:JSON.stringify({
+          'date':broadcast_date,
+          'context':context,
+          'url':url,
+          'action':1
+          })
+        };
+        $('#broadcast_date').val("");
+        $('#context').val("");
+        $('#url').val("");
+        // 打API
+        $.ajax({
+          type:'POST',
+          url:'/broadcast_exec',
+          data:data
+        }).done(function(data){
+          $('#successAlert').text("送出成功").show();
+          $('#errorAlert').hide();
+          location.reload();
+          });
+        }
+      });
+
+    // 刪除資料
+    function del_broadcast(broadcast_id){
+        $.confirm({
+            title: '系統提示',
+            content: '刪除此公告？',
+            buttons: {
+                confirm:{
+                    btnClass: 'btn-blue',
+                    action: function(){
+                      var data = {
+                      data:JSON.stringify({
+                        'broadcast_id':broadcast_id,
+                        'action':2
+                        })
+                      };
+                      $.ajax({
+                        type:'POST',
+                        url:'/broadcast_exec',
+                        data:data
+                      }).done(function(data){
+                        $('#successAlert').text("成功刪除").show();
+                        $('#errorAlert').hide();
+                        location.reload();
+                      });
+                    }
+                },
+                cancel: function () {
+                }
+            }
+        });
+      };
+
+    // 修改資料
+    function edit_broadcast(broadcast_id,context,url,date){
+      $.confirm({
+        title: '修改公告',
+        content: '' +
+        '<form action="" class="formName">' +
+        '<div class="form-group">' +
+        '<label>公告日期</label>' +
+        '<input type="date" value="'+date+'" class="form-control" id="new_date" required />' +
+        '</div>' +
+        '<div class="form-group">' +
+        '<label>公告內容</label>' +
+        '<input type="text" placeholder="'+context+'" class="form-control" id="new_context" required />' +
+        '</div>' +
+        '<div class="form-group">' +
+        '<label>URL</label>' +
+        '<input type="text" placeholder="'+url+'" class="form-control" id="new_url" required />' +
+        '</div>' +
+        '</form>',
+        buttons: {
+            formSubmit: {
+                text: 'Submit',
+                btnClass: 'btn-blue',
+                action: function () {
+                    var date = $('#new_date').val();
+                    var context = $('#new_context').val();
+                    var url = $('#new_url').val();
+                    var data = {
+                      data:JSON.stringify({
+                        'date':date,
+                        'context':context,
+                        'url':url,
+                        'broadcast_id':broadcast_id,
+                        'action':3
+                        })
+                      };
+                      console.log(date,context,broadcast_id)
+                      // 打API
+                      $.ajax({
+                        type:'POST',
+                        url:'/broadcast_exec',
+                        data:data
+                      }).done(function(data){
+                        $('#successAlert').text("成功修改").show();
+                        $('#errorAlert').hide();
+                        location.reload();
+                      });
+                }
+            },
+            cancel: function () {
+                //close
+            },
+        },
+        onContentReady: function () {
+            // bind to events
+            var jc = this;
+            this.$content.find('form').on('submit', function (e) {
+                // if the user submits the form by pressing enter in the field.
+                e.preventDefault();
+                jc.$$formSubmit.trigger('click'); // reference the button and click it
+            });
+        }
+    });
+    };
+
+
+
+
+
+  </script>
+
+  {% endblock %}

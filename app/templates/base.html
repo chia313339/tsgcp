@@ -5,7 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>TREESTUDIO</title>
 
-  <link rel="shortcut icon" href="{{ url_for('static', filename='/dist/img/logo.ico') }}" type="image/x-icon"/>
+  <link rel="shortcut icon" href="{{ url_for('static', filename='dist/img/logo.ico') }}" type="image/x-icon"/>
+
+  <!-- bootstrap -->
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous"> -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+  <!-- jquery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -14,20 +21,20 @@
   <!-- IonIcons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
-  <!-- <link rel="stylesheet" href="{{ url_for('static', filename='dist/css/adminlte.min.css') }}"> -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/css/adminlte.min.css">
   <!-- 圖片放大功能 -->
   <link rel="stylesheet" href="{{ url_for('static', filename='dist/css/lightbox.min.css') }}">
-  <script src="{{ url_for('static', filename='/dist/js/lightbox-plus-jquery.min.js') }}"></script>
-
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+  <script src="{{ url_for('static', filename='dist/js/lightbox-plus-jquery.min.js') }}"></script>
+  
+  <!-- echarts -->
   <script src="{{ url_for('static', filename='dist/js/echarts.min.js') }}"></script>
   <script src="{{ url_for('static', filename='dist/js/echarts.js') }}"></script>
   <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+  <!-- 彈出視窗功能 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/layer/3.5.1/layer.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 
 
 
@@ -142,7 +149,7 @@
 
           <!-- 公告系統 -->
           <li class="nav-item">
-            <a href="#" class="nav-link  {{ 'active' if active_page == 'broadcast' else '' }}">
+            <a href="{{ url_for('broadcast') }}" class="nav-link  {{ 'active' if active_page == 'broadcast' else '' }}">
               <i class="nav-icon fas fa-bullhorn"></i>
               <p>
                 公告系統
@@ -310,6 +317,12 @@
                 <a href="#" class="nav-link {{ 'active' if active_page == 'pgadmin' else '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>pgAdmin</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="http://34.135.113.78:8080" target="_blank" class="nav-link {{ 'active' if active_page == 'pgAdmin_gcp' else '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>pgAdmin_gcp</p>
                 </a>
               </li>
               <li class="nav-item">
