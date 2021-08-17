@@ -52,6 +52,7 @@
         </div>
 
 
+
         <!-- 區塊二 -->
         <div class="row">
 
@@ -62,6 +63,8 @@
                 <h2 class="card-title" style="font-weight: bold; color:#00B050;">今日訂餐</h2>
               </div>
               <div class="card-body">
+                <b style="color: red;">開發中敬請期待</b> 
+                <br>
                 <div align=center>
                   <a href="{{ url_for('static', filename='page/food/img/10021.jpg')}}" class="example-image-link" data-lightbox="example-set"><img class="img-fluid example-image" src="{{ url_for('static', filename='page/food/img/10021.jpg')}}" width="300" alt="Photo"></a>
                 </div>
@@ -123,7 +126,50 @@
           </div>
         </div>
 
+
+
+
+        <div class="card card-default">
+          <div class="card-body">
+            <div class="container ">
+              <div class="row">
+                <div id="testimonial-slider" class="owl-carousel">
+
+                  {% for t in testimonials_list %}
+                  <div class="testimonial">
+                    <div class="pic">
+                        <img src="{{ url_for('static', filename=t[4])}}" alt=""/>
+                    </div>
+                    
+                    <div class="testimonial-review">
+                        <h4 class="testimonial-title">
+                          {{t[1]}}
+                            <small>{{t[2]}}</small>
+                        </h4>
+                        <p>
+                          {{t[3]}}
+                        </p>
+                    </div>
+                  </div>
+                  {% endfor %}
+                                
+                </div>
+              </div>
+            </div>        
+          </div>
+        </div>
+
+
+
+
+
+
         <!-- 區塊三 -->
+        <!-- 感言 -->
+        
+
+
+        <!-- 區塊四 -->
         <!-- 留言板 -->
         <div class="card card-default">
           <div class="card-header">
@@ -132,8 +178,8 @@
           <div class="card-body">
             <form class="form-horizontal" method="POST" id="message_input">
               <div class="input-group input-group-sm mb-0">
-                <input type="text" class="form-control form-control-sm col-sm-3" placeholder="Who" id="name">
-                <input type="text" class="form-control form-control-sm col-sm-9" placeholder="Response" id="message">
+                <input type="text" class="form-control form-control-sm col-sm-3" placeholder="Who" id="name" required>
+                <input type="text" class="form-control form-control-sm col-sm-9" placeholder="Response" id="message" required>
                 <div class="input-group-append">
                   <button type="submit" class="btn btn-danger" id="submit">Send</button>
                 </div>
@@ -196,7 +242,7 @@
         type:'POST',
         url:'/simple_message_board',
         data:data
-      }).done(function(data){
+      }).then(function(data){
         $('#successAlert').show();
         $('#errorAlert').hide();
         $('#message_list').prepend('<div><span style="font-weight: bold;">@'+name+'</span><i style="color: rgb(153, 153, 153); font-size:smaller; padding-left: 10px;">'+data.date+'</i><p>'+message+'</p><hr></div>');
@@ -207,6 +253,88 @@
     event.preventDefault();
   });
 
+  $(document).ready(function(){
+    $("#testimonial-slider").owlCarousel({
+        items:2,
+        itemsDesktop:[1000,1],
+        itemsDesktopSmall:[979,1],
+        itemsTablet:[768,1],
+        pagination: true,
+        autoPlay:true
+    });
+});
+
 </script>
+
+<style>
+.testimonial{
+    background-color: #f3f3f3;
+    border-radius: 5px;
+    padding: 30px;
+    margin: 0 15px;
+}
+.testimonial .pic{
+    width: 90px;
+    height: 90px;
+    margin: 0 30px 15px 0;
+    float: left;
+}
+.testimonial .pic img{
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+}
+.testimonial .testimonial-title{
+    color: #000000;
+    font-size: 16px;
+    margin-top: 5px;
+    font-weight: 800;
+    text-transform: capitalize;
+}
+.testimonial .testimonial-title small{
+    display: block;
+    color: #dc005a;
+    font-size: 14px;
+    font-weight: 800;
+    margin-top: 10px;
+}
+.testimonial .testimonial-review p{
+    color: #888888;
+    font-size: 15px;
+    font-style: italic;
+    line-height: 19px;
+    margin-bottom: 0;
+}
+.owl-theme .owl-controls{
+    margin-top: 20px;
+}
+.owl-theme .owl-controls .owl-page span{
+    width: 10px;
+    height: 10px;
+    background:rgb(212, 212, 212);
+    opacity: 1;
+}
+.owl-theme .owl-controls .owl-page.active span,
+.owl-theme .owl-controls.clickable .owl-page:hover span{
+    background: #fff;
+    border: 1px solid #cdcdcd;
+}
+.owl-pagination{
+    margin-top: 40px;
+}
+.owl-theme .owl-controls .owl-page.active span, 
+.owl-theme .owl-controls.clickable .owl-page:hover span{
+    background:#00B050;
+    border:3px solid #00B050;
+}
+@media screen and (max-width: 990px){
+    .testimonial-parallax h2{
+        margin-bottom: 40px;
+    }
+    .testimonial{
+        margin: 0;
+    }
+}                  
+</style>
 
   {% endblock %}

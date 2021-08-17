@@ -20,4 +20,6 @@ def create_app():
     app.add_url_rule('/test', 'test', test, methods=['GET'])
     app.add_url_rule('/simple_message_board', 'simple_message_board', simple_message_board, methods=['POST'])
     app.add_url_rule('/broadcast_exec', 'broadcast_exec', broadcast_exec, methods=['POST'])
+    app.add_url_rule('/get_file/<dirname>/<filename>', 'get_file', get_file, methods=['GET','POST'])
+    app.add_url_rule('/project_bfx_evaluation', 'project_bfx_evaluation', project_bfx_evaluation, methods=['POST'])
     return app

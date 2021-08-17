@@ -12,7 +12,6 @@
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1 class="m-0">BFX Leaderboard</h1>
-            <b style="color: red;">這邊還在蓋還沒好，只是示意架構!!!</b>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -27,6 +26,9 @@
     <div class="content">
       <div class="container-fluid">
 
+        <div id="successAlert" class="alert alert-success" role="alert" style="display:none;"></div>
+	      <div id="errorAlert" class="alert alert-danger" role="alert" style="display:none;"></div>
+
         <!-- 區塊一 -->
         <!-- submit pred -->
         <div class="card card-default">
@@ -34,19 +36,19 @@
             <h2 class="card-title" style="font-weight: bold; color:#00B050;">Submit Predicrions</h2>
           </div>
           <div class="card-body">
-            <form action="#">
+            <form method="POST" id="bfx_form" enctype='multipart/form-data'>
               <div class="row">
                 <div class="col-sm-4">
                   <div class="form-group">
                     <label>Name</label>
-                    <input type="text" class="form-control" placeholder="Who r u...">
+                    <input type="text" id = "bfx_name" name = "bfx_name" class="form-control" placeholder="Who r u..." required>
                   </div>
                 </div>
                 <div class="col-sm-4">
                   <div class="form-group">
                     <label>Upload submission file</label>
                     <div class="custom-file">
-                     <input type="file" class="custom-file-input" id="submissionFile" >
+                     <input type="file" id = "bfx_csv" name = "bfx_csv" class="custom-file-input" accept=".csv, .CSV" required>
                      <label class="custom-file-label" for="submissionFile">Choose cav file</label>
                    </div>
                  </div>
@@ -55,7 +57,7 @@
                   <div class="form-group">
                     <label>Upload Notebook (非必要)</label>
                     <div class="custom-file">
-                     <input type="file" class="custom-file-input" id="notebookFile">
+                     <input type="file" id = "bfx_nb" name = "bfx_nb" class="custom-file-input" accept=".ipynb, .IPYNB">
                      <label class="custom-file-label" for="notebookFile">Choose ipynb file</label>
                    </div>
                  </div>
@@ -63,9 +65,9 @@
               </div>
               <div class="form-group">
                 <label>Describe submission</label>
-                <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                <textarea class="form-control" id = "bfx_des" name = "bfx_des" rows="3" placeholder="Enter ..."></textarea>
               </div>
-              <button type="submit" class="btn btn-info float-right">Make Submission</button>
+              <button type="submit" id = "bfx_submit" class="btn btn-info float-right">Make Submission</button>
             </form>
           </div>
         </div>
@@ -91,46 +93,20 @@
                   </tr>
                 </thead>
                 <tbody>
+                  {% for item in leaderboard_list %}
                   <tr>
-                    <th>1</th>
-                    <td>YK</td>
-                    <td><button type="button" class="btn btn-warning btn-sm">Notebook</button></td>
-                    <td>CNN 2layer</td>
-                    <td>0.83</td>
-                    <td>2021-05-01</td>
+                    <th>{{loop.index}}</th>
+                    <td>{{item[1]}}</td>
+                    <td>
+                      {% if item[3] !='' %}
+                      <a href="/get_file/project_bfx/{{item[3]}}"><button type="button" class="btn btn-warning btn-sm">Notebook</button></a>
+                      {% endif %}
+                    </td>
+                    <td>{{item[4]}}</td>
+                    <td>{{item[5]}}</td>
+                    <td>{{item[6]}}</td>
                   </tr>
-                  <tr>
-                    <th>2</th>
-                    <td>YK</td>
-                    <td></td>
-                    <td>vgg16</td>
-                    <td>0.81</td>
-                    <td>2021-05-01</td>
-                  </tr>
-                  <tr>
-                    <th>3</th>
-                    <td>YK</td>
-                    <td><button type="button" class="btn btn-warning btn-sm">Notebook</button></td>
-                    <td>vgg19</td>
-                    <td>0.75</td>
-                    <td>2021-05-01</td>
-                  </tr>
-                  <tr>
-                    <th>4</th>
-                    <td>奶茶王子</td>
-                    <td><button type="button" class="btn btn-warning btn-sm">Notebook</button></td>
-                    <td>yolo4</td>
-                    <td>0.70</td>
-                    <td>2021-05-01</td>
-                  </tr>
-                  <tr>
-                    <th>5</th>
-                    <td>Ming</td>
-                    <td><button type="button" class="btn btn-warning btn-sm">Notebook</button></td>
-                    <td>xgboost</td>
-                    <td>0.5</td>
-                    <td>2021-05-01</td>
-                  </tr>
+                  {% endfor %}
                 </tbody>
               </table>
             </div>
@@ -151,6 +127,42 @@
 
 
   </div> <!-- /.content-wrapper -->
+
+
+  <script>
+    // 上傳改檔名
+    $('#bfx_csv').change(function() {
+		  var i = $(this).next('label').clone();
+		  var file = $('#bfx_csv')[0].files[0].name;
+		  $(this).next('label').text(file);
+		});
+    $('#bfx_nb').change(function() {
+			var i = $(this).next('label').clone();
+			var file = $('#bfx_nb')[0].files[0].name;
+			$(this).next('label').text(file);
+		});
+
+
+    // 上傳成果
+    $('#bfx_submit').click(function(){
+      var name = $('#bfx_name').val();
+      var csv = $('#bfx_csv').val();
+      var nb = $('#bfx_nb').val();
+      var des = $('#bfx_des').val();
+      // var csv_file = new FormData($('#bfx_csv')[0]);
+      if(name==='' | csv===''){
+        $('#errorAlert').text("送出失敗，可能內容有誤").show();
+        $('#successAlert').hide();
+      }
+      else{
+        $('#successAlert').text("送出成功，請等待運算").show();
+        $('#errorAlert').hide();
+        $("#bfx_form").attr("action", "/project_bfx_evaluation");
+
+      }
+      
+    });
+  </script>
 
 
 
