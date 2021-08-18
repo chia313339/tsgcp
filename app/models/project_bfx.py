@@ -3,6 +3,7 @@ from flask import request, jsonify, render_template, redirect, url_for
 import datetime
 from sklearn.metrics import accuracy_score
 import pandas as pd
+import os
 
 
 pgdb_config={
@@ -12,6 +13,10 @@ pgdb_config={
 'password':'treestudio',
 'database':'treestudio',
 }
+
+def ipynb2html(path,filename):
+    os.system("cd "+path+"; "+"jupyter nbconvert "+filename+".ipynb --to html;")
+    os.system("cd "+path+"; "+"jupyter nbconvert "+filename+".ipynb --to html;")
 
 def evaluation_metrics(y_true, y_pred):
     result = accuracy_score(y_true, y_pred)
@@ -38,12 +43,14 @@ def project_bfx_evaluation():
     f_csv = request.files['bfx_csv']
     f_nb = request.files['bfx_nb']
     update_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    filename = str(name +"_"+ update_time)
+    lastname = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+    filename = str(name +"_"+ lastname)
     # 上傳資料、計算分數
     if f_nb:
         f_csv.save(os.path.join(path, filename+'.csv'))
         f_nb.save(os.path.join(path, filename+'.ipynb'))
         print("有nb")
+        ipynb2html(path,filename)
         score = bfx_score(path,filename)
         sqls = '''INSERT INTO project_bfx(name, csv_file, nb_file, des, score, etl_date, del_flg) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', 0);''' % (name, filename+'.csv', filename+'.ipynb', des, score, update_time)
     else:
