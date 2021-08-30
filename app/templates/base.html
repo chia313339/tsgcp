@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="Refresh" content="60"> 
+  <!-- <meta http-equiv="Refresh" content="60">  -->
   <title>TREE STUDIO</title>
 
   <link rel="shortcut icon" href="{{ url_for('static', filename='dist/img/logo.ico') }}" type="image/x-icon"/>
@@ -43,13 +43,19 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.min.css">
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
   <!-- 其他動畫 -->
-  <!-- <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script> -->
-  <!-- <script src="https://unpkg.com/awesome-slider/dist/awesome-slider.min.js"></script> -->
-  <!-- <script src="js/jquery.waterwheelCarousel.min.js"></script>   -->
   <script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js'></script>
- 
- 
-
+  <!-- datatable -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.25/datatables.min.css"/>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.25/datatables.min.js"></script>
+  <!-- BS-Stepper -->
+  <script src="{{ url_for('static', filename='plugins/bs-stepper/js/bs-stepper.min.js')}}"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='plugins/bs-stepper/css/bs-stepper.min.css')}}">
+  <!-- 選擇日期時間 -->
+  <!-- <link rel="stylesheet" href="{{ url_for('static', filename='plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
+  <script src="{{ url_for('static', filename='plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>  -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.0/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/js/tempusdominus-bootstrap-4.min.js" integrity="sha512-k6/Bkb8Fxf/c1Tkyl39yJwcOZ1P4cRrJu77p83zJjN2Z55prbFHxPs9vN7q3l3+tSMGPDdoH51AEU8Vgo1cgAA==" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/css/tempusdominus-bootstrap-4.min.css" integrity="sha512-3JRrEUwaCkFUBLK1N8HehwQgu8e23jTH4np5NHOmQOobuC4ROQxFwFgBLTnhcnQRMs84muMh0PnnwXlPq5MGjg==" crossorigin="anonymous" />
   
 </head>
 <!--
@@ -134,13 +140,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link {{ 'active' if active_page == 'food_order' else '' }}">
+                <a href="{{ url_for('food_order') }}" class="nav-link {{ 'active' if active_page == 'food_order' else '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>今日訂餐</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link {{ 'active' if active_page == 'food_setting' else '' }}">
+                <a href="{{ url_for('food_setting') }}" class="nav-link {{ 'active' if active_page == 'food_setting' else '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>訂餐設定</p>
                 </a>
@@ -400,6 +406,13 @@ function saveAsPDF() {
       }
    });
 };
+
+// 顯示上傳檔案名稱
+$(document).ready(function(){
+      $(".custom-file-input").change(function () {
+        $(this).next(".custom-file-label").html($(this).val().split("\\").pop());
+      });
+    });
 </script>
 
 </body>

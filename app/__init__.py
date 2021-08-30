@@ -14,6 +14,8 @@ def create_app():
     app.add_url_rule('/broadcast', 'broadcast', broadcast, methods=['GET', 'POST'])
     app.add_url_rule('/create_jupyter', 'create_jupyter', create_jupyter, methods=['GET', 'POST'])
     app.add_url_rule('/hive', 'hive', hive, methods=['GET', 'POST'])
+    app.add_url_rule('/food_order', 'food_order', food_order, methods=['GET', 'POST'])
+    app.add_url_rule('/food_setting', 'food_setting', food_setting, methods=['GET', 'POST'])
     app.add_url_rule('/project_bfx_1', 'project_bfx_1', project_bfx_1, methods=['GET', 'POST'])
     app.add_url_rule('/project_bfx_2', 'project_bfx_2', project_bfx_2, methods=['GET', 'POST'])
     app.register_error_handler(404, page_not_found)
@@ -22,4 +24,9 @@ def create_app():
     app.add_url_rule('/broadcast_exec', 'broadcast_exec', broadcast_exec, methods=['POST'])
     app.add_url_rule('/get_file/<dirname>/<filename>', 'get_file', get_file, methods=['GET','POST'])
     app.add_url_rule('/project_bfx_evaluation', 'project_bfx_evaluation', project_bfx_evaluation, methods=['POST'])
+    app.add_url_rule('/add_store_menu', 'add_store_menu', add_store_menu, methods=['POST'])
+    app.add_url_rule('/edit_store_menu', 'edit_store_menu', edit_store_menu, methods=['POST'])
+    app.add_url_rule('/del_store_menu', 'del_store_menu', del_store_menu, methods=['POST'])
+    app.add_url_rule('/add_order_setting', 'add_order_setting', add_order_setting, methods=['POST'])
+    
     return app

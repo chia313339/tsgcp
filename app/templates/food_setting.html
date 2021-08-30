@@ -1,0 +1,573 @@
+{% extends "base.html" %}
+{% set open_page = "food" %}
+{% set active_page = "food_setting" %}
+{% block content %}
+
+
+  <div class="content-wrapper" id = "wrapper_page">
+
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">訂餐設定</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item active"></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.content-header -->
+
+    <div class="content">
+      <div class="container-fluid">
+
+
+
+        <div id="successAlert" class="alert alert-warning" role="alert" style="display:none;"></div>
+	      <div id="errorAlert" class="alert alert-danger" role="alert" style="display:none;"></div>
+
+        <div>
+          <p id = "test"></p>
+        </div>
+
+        
+        <div class="card">
+          <div class="card-success">
+            <button type="button" id="order_head" class="btn btn-success btn-block btn-flat">我要開團</button>
+          </div>
+          <div class="card-body" id="order_body" style="display:none">
+            <form>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>訂單編號</label>
+                    <input type="text" class="form-control" id ="order_no" name ="order_no" readonly>
+                  </div>
+                  <div class="form-group">
+                    <label>店家名稱</label>
+                    <select id = "order_store_no" name = "order_store_no" class="form-control" style="width: 100%;" required>
+                      <option value="{{store_info_list[0][0]}}" selected="selected">{{store_info_list[0][1]}}</option>
+                      {% for item in store_info_list[1::] %}
+                        <option value="{{item[0]}}">{{item[1]}}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>開團者</label>
+                    <input type="text" class="form-control" id ="order_owner" name ="order_owner" required>
+                  </div>
+                  <div class="form-group">
+                    <label>訂單截止時間</label>
+                      <div class="input-group date" id="reservationdatetime" data-target-input="nearest">
+                          <input id = "order_deadline" type="text" class="form-control datetimepicker-input" data-target="#reservationdatetime" required/>
+                          <div class="input-group-append" data-target="#reservationdatetime" data-toggle="datetimepicker">
+                              <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label>備註說明</label>
+                    <input type="text" class="form-control" id ="order_remark" name ="order_remark">
+                  </div>
+                  <button type="button" id="order_submit" class="btn btn-success">Submit</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        
+
+        <br>
+        
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-success">
+                <button type="button" id="store_head" class="btn btn-primary btn-block btn-flat">新增店家</button>
+              </div>
+              <div class="card-body" id="store_body" style="display:none">
+              <form id="store_menu_form" method="POST" enctype='multipart/form-data' action='/add_store_menu'>
+                <div class="bs-stepper">
+                  <div class="bs-stepper-header" role="tablist">
+                    <!-- your steps here -->
+                    <div class="step" data-target="#store-setting-part">
+                      <button type="button" class="step-trigger" role="tab" aria-controls="store-setting-part">
+                        <span class="bs-stepper-circle">1</span>
+                        <span class="bs-stepper-label">店家設定</span>
+                      </button>
+                    </div>
+                    <div class="line"></div>
+                    <div class="step" data-target="#information-part">
+                      <button type="button" class="step-trigger" role="tab" aria-controls="information-part">
+                        <span class="bs-stepper-circle">2</span>
+                        <span class="bs-stepper-label">菜單設定</span>
+                      </button>
+                    </div>
+                    <div class="line"></div>
+                    <div class="step" data-target="#confirm-part">
+                      <button type="button" class="step-trigger" role="tab" aria-controls="confirm-part">
+                        <span class="bs-stepper-circle">3</span>
+                        <span class="bs-stepper-label">最後確認</span>
+                      </button>
+                    </div>
+                  </div>
+                  
+                    <div class="bs-stepper-content">
+                      <!-- your steps content here -->
+                      <div id="store-setting-part" class="content" role="tabpanel" aria-labelledby="store-setting-part-trigger">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>店家編號</label>
+                              <input type="text" class="form-control" id ="store_no" name ="store_no" readonly>
+                            </div>
+                            <div class="form-group">
+                              <label>店家名稱*</label>
+                              <input type="text" class="form-control" id="store_name" name="store_name" required>
+                            </div>
+                            <div class="form-group">
+                              <label for="store_name">店家電話</label>
+                              <input type="text" class="form-control" id="store_tel" name="store_tel">
+                            </div>
+                            <div class="form-group">
+                              <label for="store_name">店家地址</label>
+                              <input type="text" class="form-control" id="store_add" name="store_add">
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>店家種類*</label>
+                              <select class="form-control select2" style="width: 100%;" id="store_class" name="store_class" required>
+                                <option selected="selected">餐廳</option>
+                                <option>飲料</option>
+                                <option>其他</option>
+                              </select>
+                            </div>
+                            <div class="form-group">
+                              <label>備註說明</label>
+                              <textarea class="form-control" rows="8" id="store_remark" name="store_remark" placeholder="Enter ..."></textarea>
+                            </div>
+                          </div>
+                          <div class="form-group col-md-12">
+                            <label>店家照片</label>
+                            <div class="custom-file">
+                              <input type="file" id="pic1_file" name="pic1_file" class="custom-file-input" accept=".jpg, .png, .gif, .jpeg">
+                              <label class="custom-file-label">Choose img file</label>
+                            </div>
+                          </div>
+  
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="stepper.next()">Next</button>
+                      </div>
+                      <div id="information-part" class="content" role="tabpanel" aria-labelledby="information-part-trigger">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>菜單編輯</label>
+                              <textarea class="form-control" rows="8" id="store_menu" name="store_menu" placeholder="Enter ..."></textarea>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>範例</label>
+                              <textarea class="form-control" rows="8" id="example" disabled>#使用空格分隔，逗號斷行
+# 品項 品項金額 備註,
+
+招牌水餃 50 每顆5元,
+泡菜水餃 60 每顆6元,
+酸辣湯 40,
+韭菜水餃 60 每顆6元
+                              </textarea>
+                            </div>
+                          </div>
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="stepper.previous()">Previous</button>
+                        <button type="button" class="btn btn-primary" onclick="stepper.next()" id="show_menu">Next</button>
+                      </div>
+                      <div id="confirm-part" class="content" role="tabpanel" aria-labelledby="confirm-part-trigger">
+                        <div class="row">
+                          <div class="card-body table-responsive p-0" id="store_menu_show" style="height: 300px;">
+  
+                          </div>
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="stepper.previous()">Previous</button>
+                        <button type="submit" id="store_submit" class="btn btn-primary">Submit</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+        
+        <br>
+        
+        <!-- 區塊一 -->
+        <!-- 店家清單 -->
+        <div class="card card-default">
+          <div class="card-body">
+            <div class="table-responsive">
+              <table id="store_list" class="table table-bordered table-hover" style="width:100%">
+                <thead>
+                    <tr>
+                        <th scope="col">縮圖</th>
+                        <th scope="col">店家名稱</th>
+                        <th scope="col">店家種類</th>
+                        <th scope="col">評價</th>
+                        <th scope="col">店家資訊</th>
+                        <th scope="col">備註</th>
+                        <th scope="col">修改日期</th>
+                        <th scope="col">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in store_info_list %}
+                    {% set menu =  item[7]|replace("\r\n", "rn") %}
+                      <tr>
+                        <td ><a href="{{ url_for('static', filename='page/food/img/'+item[5]+'.jpg')}}" class="example-image-link" data-lightbox="example-set"><img src="{{ url_for('static', filename='page/food/img/'+item[5]+'.jpg')}}" style="height: 80px;" alt=""></a></td>
+                        <td>{{item[1]}}</td>
+                        <td>{{item[2]}}</td>
+                        <td class="star-rating">{{item[8]}}</td>
+                        <td>{{item[4]}}<br>{{item[3]}}</td>
+                        <td>{{item[6]}}</td>
+                        <td>{{item[10]}}</td>
+                        <td>
+                          <button type="button" class="btn btn-primary" onclick="edit_store('{{item[0]}}','{{item[1]}}','{{item[4]}}','{{item[3]}}','{{item[6]}}','{{item[5]}}','{{menu}}')"><i class="fas fa-pen-alt"> 編輯</i></button>&nbsp;
+                          <a href="#order_head"><button type="button" class="btn btn-success" onclick="store_select('{{item[0]}}')"><i class="fas fa-hamburger"> 開團</i></button></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            
+  
+
+          </div>
+        </div>
+        
+
+
+
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+  </div> <!-- /.content-wrapper -->
+
+
+  <script>
+
+    // 我要開團
+    $('#order_submit').click(function(){
+      let order_no = $('#order_no').val();
+      let order_store_no = $('#order_store_no').val();
+      let order_owner = $('#order_owner').val();
+      let order_deadline = $('#order_deadline').val();
+      let order_remark = $('#order_remark').val();
+      console.log(order_deadline)
+      
+      var data = {
+                  data:JSON.stringify({
+                    'order_no':order_no,
+                    'order_store_no':order_store_no,
+                    'order_owner':order_owner,
+                    'order_deadline':order_deadline,
+                    'order_remark':order_remark
+                    })
+                  };
+      $.confirm({
+        title: '確定送出？',
+        buttons: {
+            confirm: {
+                btnClass: 'btn-blue',
+                action:function(){
+                  $('#successAlert').text("送出成功，請等待重整").show();
+                  $('#errorAlert').hide();
+                  // 打API
+                  $.ajax({
+                    type: "POST",
+                    url: '/add_order_setting',
+                    data: data
+                  }).done(function(){
+                    location.reload();
+                  });
+                }
+              },
+            cancel: {
+            }
+          }
+      });
+       
+    
+    })
+
+    // 快速點選店家
+    function store_select(store_name){
+      $("#order_store_no").val(store_name).change();
+      $("#order_body").show(100);
+        var dt = new Date();
+        var order_no = '200' + dt.getFullYear() + dt.getMonth() + dt.getDay() + dt.getHours() + dt.getMinutes() + dt.getSeconds() + dt.getMilliseconds(); 
+        document.getElementById("order_no").value = order_no;
+    };
+
+    // 菜單文字2表格
+    function text2table(text){
+      //切分每個項目
+      let menu_item = text.split(',');
+      let item_no = 0;
+      let menu_show = ''
+      
+      //建立table html文字
+      for (let item of menu_item) {
+        item_no += 1;
+        if(item==='') break;
+        let tmp = item.split(' ');
+        if(typeof(tmp[2])==='undefined') tmp[2]='';
+        let item_tmp = [item_no, tmp[0], tmp[1], tmp[2]];
+        context = '<tr>'+
+        '<td>'+item_tmp[0]+'</td>'+
+        '<td>'+item_tmp[1]+'</td>'+
+        '<td>'+item_tmp[2]+'</td>'+
+        '<td>'+item_tmp[3]+'</td>'+
+        '</tr>';
+        menu_show = menu_show + context
+      }
+      menu_table = '<table class="table table-head-fixed text-nowrap"><thead><tr><th>NO</th><th>品項</th><th>價格</th><th>備註</th></tr></thead><tbody>' + menu_show + '</tbody></table>';
+      return menu_table
+    };
+
+    // 菜單預覽顯示
+    $('#show_menu').click(function(){
+      let store_menu = $('#store_menu').val().replaceAll(/\n/g,"");
+      let menu_table =  text2table(store_menu)
+      $('#store_menu_show').html(menu_table)
+    });
+
+
+    // 新增店家
+    $('#store_submit').click(function(){
+      var store_name = $('#store_name').val();
+      var store_menu = $('#store_menu').val();
+      if(store_menu==='' | store_name===''){
+        $('#errorAlert').text("送出失敗，可能內容有誤").show();
+        $('#successAlert').hide();
+      }
+      else{
+        $('#successAlert').text("送出成功，請等待重整").show();
+        $('#errorAlert').hide();
+        // $("#store_menu_form").attr("action", "/add_store_menu");
+
+      }
+    });
+
+
+    // 編輯店家
+    function edit_store(store_no,name,tel,add,remark,pic,menu){
+      menu =  menu.replaceAll("rn","\n");
+      
+
+      $.confirm({
+        title: '編輯店家資訊',
+        content:
+        content= '' +
+        '<form class="formName" id="edit_store_menu" enctype="multipart/form-data">' +
+        '<div class="form-group">' +
+        '<label>店家編號</label>' +
+        '<input type="text" value="'+store_no+'" class="form-control" id="new_store_no" name="new_store_no" readonly/>' +
+        '</div>' +
+        '<div class="form-group">' +
+        '<label>店家名稱</label>' +
+        '<input type="text" value="'+name+'" class="form-control" id="new_name" name="new_name" readonly />' +
+        '</div>' +
+        '<div class="form-group">' +
+        '<label>店家電話</label>' +
+        '<input type="text" value="'+tel+'" class="form-control" id="new_tel" name="new_tel"/>' +
+        '</div>' +
+        '<div class="form-group">' +
+        '<label>店家地址</label>' +
+        '<input type="text" value="'+add+'" class="form-control" id="new_add" name="new_add" />' +
+        '</div>' +
+        '<div class="form-group">' +
+        '<label>備註</label>' +
+        '<input type="text" value="'+remark+'" class="form-control" id="new_remark" name="new_remark"/>' +
+        '</div>' +
+        '<div class="form-group">' +
+        '<label>店家照片</label>' +
+        '<div class="custom-file">' +
+        '<input type="file" class="custom-file-input" accept=".jpg, .png, .gif, .jpeg" id="new_pic" name="new_pic" />' +
+        '<label class="custom-file-label">'+ pic + '.jpg</label>' +
+        '</div>' +
+        '</div>' +
+        '<div class="form-group">' +
+        '<label>菜單內容</label>' +
+        '<textarea class="form-control" rows="5" id="new_menu" name="new_menu">'+menu+'</textarea>' +
+        '</div>' +
+        '</form>'
+        ,
+        onContentReady: function () {
+          // 顯示上傳檔案名稱
+          $(document).ready(function(){
+                $(".custom-file-input").change(function () {
+                  $(this).next(".custom-file-label").html($(this).val().split("\\").pop());
+                });
+        });
+        },
+        buttons: {
+            edit_store: {
+                text: '修改',
+                btnClass: 'btn-blue',
+                action: function () {
+                  var form = new FormData($('#edit_store_menu')[0]);
+                  $.confirm({
+                    title: '確定送出？',
+                    buttons: {
+                        confirm: {
+                            btnClass: 'btn-blue',
+                            action:function(){
+                              // 打API
+                              $.ajax({
+                                type: "POST",
+                                url: '/edit_store_menu',
+                                data: form, 
+                                contentType: false,
+                                cache: false,
+                                processData: false,
+                              }).done(function(){
+                                location.reload();
+                              });
+                            }
+                          },
+                        cancel: {
+                        }
+                      }
+                  });
+                }
+                
+            },
+            del_store: {
+                text: '刪除',
+                btnClass: 'btn-red',
+                action: function () {
+                  var form = new FormData($('#edit_store_menu')[0]);
+                  $.confirm({
+                    title: '確定刪除？',
+                    buttons: {
+                        confirm: {
+                            btnClass: 'btn-blue',
+                            action:function(){
+                              // 打API
+                              $.ajax({
+                                type: "POST",
+                                url: '/del_store_menu',
+                                data: form, 
+                                contentType: false,
+                                cache: false,
+                                processData: false,
+                              }).done(function(){
+                                location.reload();
+                              });
+                            }
+                          },
+                        cancel: {
+                        }
+                      }
+                  });
+                }
+              
+            },
+            cancel: function () {
+                //close
+            }
+        }
+    });
+    };
+
+  
+
+    
+
+    // BS-Stepper Init
+    document.addEventListener('DOMContentLoaded', function () {
+      window.stepper = new Stepper(document.querySelector('.bs-stepper'))
+    });
+
+    $(document).ready(function(){
+      // 開團設定
+      $("#order_head").click(function(){
+        $("#order_body").toggle(100);
+        var dt = new Date();
+        var order_no = '200' + dt.getFullYear() + dt.getMonth() + dt.getDay() + dt.getHours() + dt.getMinutes() + dt.getSeconds() + dt.getMilliseconds(); 
+        document.getElementById("order_no").value = order_no;
+        });
+
+      // 店家設定
+      $("#store_head").click(function(){
+        $("#store_body").toggle(100);
+        var dt = new Date();
+        var store_no = '100' + dt.getFullYear() + dt.getMonth() + dt.getDay() + dt.getHours() + dt.getMinutes() + dt.getSeconds() + dt.getMilliseconds(); 
+        document.getElementById("store_no").value = store_no;
+        });
+
+      // 顯示datatable
+      $('#store_list').DataTable({
+      });
+
+      // 顯示星星數
+      $(".star-rating").html(function(_,n) {
+        return Array.apply(null, Array(+n)).map(function() {
+            return $('<i />', { 'class' : 'fa fa-star star-full', 'style':'color:orange' });
+        });
+      })
+
+      //Date and time picker
+      $('#reservationdatetime').datetimepicker({ 
+        icons: { time: 'far fa-clock' },
+        pick12HourFormat: false,
+        format: 'YYYY-MM-DD HH:mm:00',
+      });
+
+
+  });
+
+
+      
+  
+
+  </script>
+
+  <style>
+    .table th{
+      text-align: center;
+      vertical-align: middle !important;
+    }
+    .table td{
+      text-align: center;
+      vertical-align: middle !important;
+    }
+  </style>
+
+  
+
+  {% endblock %}

@@ -131,19 +131,6 @@
 
 
   <script>
-    // 上傳改檔名
-    $('#bfx_csv').change(function() {
-		  var i = $(this).next('label').clone();
-		  var file = $('#bfx_csv')[0].files[0].name;
-		  $(this).next('label').text(file);
-		});
-    $('#bfx_nb').change(function() {
-			var i = $(this).next('label').clone();
-			var file = $('#bfx_nb')[0].files[0].name;
-			$(this).next('label').text(file);
-		});
-
-
     // 上傳成果
     $('#bfx_submit').click(function(){
       var name = $('#bfx_name').val();
