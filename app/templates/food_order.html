@@ -31,20 +31,27 @@
 
   <div class="content">
     <div class="container-fluid">
-      
+
+    <div id="successAlert" class="alert alert-warning" role="alert" style="display:none;"></div>
+	  <div id="errorAlert" class="alert alert-danger" role="alert" style="display:none;"></div>
+
+
+    {% for order_info_item in order_info%}
+    {% set order_list_tmp = order_list[loop.index-1] %}
+      <!-- 確認訂單是否到期 -->
       <!-- 訂購中 -->
-      <div class="card card-success">
+      <div class="card {{ 'card-success' if order_info_item[4] == 0 else 'card-secondary' }}"> 
         <div class="card-header">
-          <h3 class="card-title">編號 餐廳名稱 狀態</h3>
+          <h3 class="card-title">【{{order_info_item[0]}}】  {{order_info_item[7]}}  {{ '' if order_info_item[4] == 0 else '(已結單)' }}</h3>
           <!-- 可以編輯訂單 -->
           <div class="card-tools">
-            <button type="button" class="btn btn-tool" id="edit_order">
+            <!-- <button type="button" class="btn btn-tool" id="edit_order">
               <i class="fas fa-pencil-alt"></i>
-            </button>
+            </button> -->
             <button type="button" class="btn btn-tool" data-card-widget="collapse">
               <i class="fas fa-minus"></i>
             </button>
-            <button type="button" class="btn btn-tool" id="del_order">
+            <button type="button" class="btn btn-tool" onclick="del_order_info('{{order_info_item[0]}}')">
               <i class="fas fa-times"></i>
             </button>
           </div>
@@ -55,12 +62,12 @@
             <div class="col-md-4" >
               <div style="top: 50%;text-align:center;">
                 <a
-                  href="{{ url_for('static', filename='page/food/img/nopic.jpg')}}"
+                  href="{{ url_for('static', filename='page/food/img/'+order_info_item[11]+'.jpg')}}"
                   class="example-image-link"
                   data-lightbox="example-set"
                   ><img
                     class="img-fluid example-image"
-                    src="{{ url_for('static', filename='page/food/img/nopic.jpg')}}"
+                    src="{{ url_for('static', filename='page/food/img/'+order_info_item[11]+'.jpg')}}"
                     style='height: 300px; width: auto; object-fit: contain'
                     alt=""
                 /></a>
@@ -72,50 +79,50 @@
                 <div class="col-md-6">
                   <dl class="row">
                     <dt class="col-sm-4">訂單編號</dt>
-                    <dd class="col-sm-8">4864354685</dd>
+                    <dd class="col-sm-8">{{order_info_item[0]}}</dd>
                     <dt class="col-sm-4">開團者</dt>
-                    <dd class="col-sm-8">HIDKJK</dd>
+                    <dd class="col-sm-8">{{order_info_item[2]}}</dd>
                     <dt class="col-sm-4">截止時間</dt>
-                    <dd class="col-sm-8">2021-08-02 12:51:00</dd>
-                    <dt class="col-sm-4">已訂購人數</dt>
-                    <dd class="col-sm-8">15</dd>
+                    <dd class="col-sm-8">{{order_info_item[3]}}</dd>
+                    <!-- <dt class="col-sm-4">已訂購人數</dt> -->
+                    <!-- <dd class="col-sm-8">0</dd> -->
                   </dl>
                 </div>
                 <div class="col-md-6">
                   <dl class="row">
                     <dt class="col-sm-4">店家編號</dt>
-                    <dd class="col-sm-8">4864354685</dd>
+                    <dd class="col-sm-8">{{order_info_item[1]}}</dd>
                     <dt class="col-sm-4">店家名稱</dt>
-                    <dd class="col-sm-8">HIDKJK</dd>
+                    <dd class="col-sm-8">{{order_info_item[7]}}</dd>
                     <dt class="col-sm-4">店家種類</dt>
-                    <dd class="col-sm-8">15</dd>
+                    <dd class="col-sm-8">{{order_info_item[8]}}</dd>
                     <dt class="col-sm-4">店家電話</dt>
-                    <dd class="col-sm-8">2021-08-02 12:51:00</dd>
+                    <dd class="col-sm-8">{{order_info_item[10]}}</dd>
                     <dt class="col-sm-4">店家地址</dt>
-                    <dd class="col-sm-8">fefIIIfefI</dd>
+                    <dd class="col-sm-8">{{order_info_item[9]}}</dd>
                     <dt class="col-sm-4">店家評價</dt>
-                    <dd class="col-sm-8 star-rating">5</dd>
+                    <dd class="col-sm-8 star-rating">{{order_info_item[14]}}</dd>
                     <dt class="col-sm-4">備註</dt>
-                    <dd class="col-sm-8">Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh</dd>
+                    <dd class="col-sm-8">{{order_info_item[12]}}</dd>
                   </dl>
                 </div>
             </div>
           </div>
           </div>
 
-          <hr />
-          <br />
+          <hr {{ '' if order_info_item[4] == 0 else 'style=display:none;' }} />
+          <br {{ '' if order_info_item[4] == 0 else 'style=display:none;' }} />
 
           <!-- 使用者新增訂單 -->
-          <div class="row">
+          <div class="row" {{ '' if order_info_item[4] == 0 else 'style=display:none;' }}>
             <div class="col-md-2">
               <div class="form-group">
                 <label>訂購者</label>
                 <input
                   type="text"
                   class="form-control"
-                  id="order_name"
-                  name="order_name"
+                  id="{{order_info_item[0]}}_order_name"
+                  name="{{order_info_item[0]}}_order_name"
                 />
               </div>
             </div>
@@ -123,16 +130,16 @@
               <div class="form-group">
                 <label>品項</label>
                 <select
-                  id="item_select"
-                  name="item_select"
+                  id="{{order_info_item[0]}}_item_select"
+                  name="{{order_info_item[0]}}_item_select"
                   class="form-control"
                   style="width: 100%"
                 >
-                  <option>Text only 60</option>
-                  <option>Images 30</option>
-                  <option>Video 40</option>
+                {% set item_list = order_info_item[13].split(',') %}
+                {% for item in item_list %}
+                    <option>{{ item }}</option>
+                {% endfor %} 
                 </select>
-                <i style="color: grey">品項備註</i>
               </div>
             </div>
             <div class="col-md-1">
@@ -140,8 +147,8 @@
                 <label>數量</label>
                 <input
                   type="number"
-                  id="item_num"
-                  name="item_num"
+                  id="{{order_info_item[0]}}_item_num"
+                  name="{{order_info_item[0]}}_item_num"
                   value="1"
                   class="form-control"
                   min="0"
@@ -153,8 +160,8 @@
                 <label>備註</label>
                 <input
                   type="text"
-                  id="item_remark"
-                  name="item_remark"
+                  id="{{order_info_item[0]}}_item_remark"
+                  name="{{order_info_item[0]}}_item_remark"
                   class="form-control"
                 />
               </div>
@@ -165,18 +172,19 @@
                 type="button"
                 id="add_shopping_cart"
                 class="btn btn-success col-md-12"
+                onclick="add_shopping_cart('{{order_info_item[0]}}')"
               >
                 加入購物車
               </button>
             </div>
           </div>
           <br />
-          <hr />
+          <hr {{ '' if order_info_item[4] == 0 else 'style=display:none;' }}/>
           <br />
 
           <!-- 購物車，有訂餐才會顯示 -->
           <form>
-            <div id="shopping_cart">
+            <div id="{{order_info_item[0]}}_shopping_cart" style="display: none;">
               <h4>
                 <i class="fas fa-shopping-cart"></i> <strong>購物車</strong>
               </h4>
@@ -185,10 +193,10 @@
                   <table
                     class="table table-hover text-nowrap"
                     style="width: 100%"
+                    id = "{{order_info_item[0]}}_shopping_cart_table"
                   >
                     <thead>
                       <tr>
-                        <th>NO</th>
                         <th>訂購者</th>
                         <th>品項</th>
                         <th>單價金額</th>
@@ -196,18 +204,7 @@
                         <th>備註</th>
                       </tr>
                     </thead>
-                    <tbody id="shopping_cart_list">
-                      <tr>
-                        <td>1</td>
-                        <td>John Doe</td>
-                        <td>招牌水餃</td>
-                        <td>60</td>
-                        <td>1</td>
-                        <td>
-                          Bacon ipsum dolor sit amet salami venison chicken
-                          flank fatback doner.
-                        </td>
-                      </tr>
+                    <tbody id="{{order_info_item[0]}}_shopping_cart_list">
                     </tbody>
                   </table>
                   <br />
@@ -217,8 +214,8 @@
               <div class="row justify-content-end">
                 <button
                   type="button"
-                  id="order_submit"
                   class="btn btn-primary col-md-2"
+                  onclick="submit_shopping_cart('{{order_info_item[0]}}','{{order_info_item[1]}}')"
                 >
                   Submit
                 </button>
@@ -229,9 +226,9 @@
       </div>
 
       <!-- 訂單統計 -->
-      <div class="card card-success card-outline">
+      <div class="card {{ 'card-success' if order_info_item[4] == 0 else 'card-secondary' }} card-outline">
         <div class="card-header">
-          <h3 class="card-title" style="font-weight: bold; color:#00B050;">訂單統計</h3>
+          <h3 class="card-title" style="font-weight: bold; {{ 'color:#00B050;' if order_info_item[4] == 0 else 'color:gray;' }}">【{{order_info_item[0]}}】 訂單統計</h3>
           <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse">
               <i class="fas fa-minus"></i>
@@ -239,7 +236,7 @@
           </div>
         </div>
         <div class="card-body">
-          <div class="table-responsive">
+          <div class="table-responsive shopping_cart_list">
             <table
                     class="table table-hover text-nowrap"
                     style="width: 100%"
@@ -255,44 +252,233 @@
                         <th>操作</th>
                       </tr>
                     </thead>
-                    <tbody id="shopping_cart_list">
+                    <tbody>
+                      {% for item in order_list_tmp %}
                       <tr>
-                        <td>1</td>
-                        <td>John Doe</td>
-                        <td>招牌水餃</td>
-                        <td>60</td>
-                        <td>1</td>
+                        <td>{{loop.index}}</td>
+                        <td>{{item[2]}}</td>
+                        <td>{{item[3]}}</td>
+                        <td>{{item[4]}}</td>
+                        <td>{{item[5]}}</td>
+                        <td>{{item[6]}}</td>
                         <td>
-                          Bacon ipsum dolor sit amet salami venison chicken
-                          flank fatback doner.
-                        </td>
-                        <td>
-                          <button type="button" id="del_one_order" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                          <button type="button" class="btn btn-danger" onclick="del_order_item('{{item[0]}}','{{item[2]}}','{{item[3]}}','{{item[4]}}','{{item[5]}}','{{item[6]}}')" {{ '' if order_info_item[4] == 0 else 'style=display:none;' }}><i class="fas fa-trash"></i></button>
                         </td>
                       </tr>
+                      {% endfor %}
                     </tbody>
                   </table>
           </div>
+          <div class="row justify-content-end">
+            <button type="button" class="btn btn-info col-md-2" onclick="quick_summary('{{order_info_item[0]}}')">快速結算</button>
+          </div>
+          
+
         </div>
       </div>
 
+    {% endfor %}
 
 
 
 
-
-
-
-
-
-
-      123123 123123
     </div>
   </div>
 </div>
 <!-- /.content-wrapper -->
 
+
+
+
 <script>
+
+// 快速結算
+function quick_summary(order_no){
+  let data = { data:JSON.stringify({
+    "order_no":order_no
+  })};
+  $.confirm({
+    icon: 'far fa-credit-card',
+    title: '快速結算',
+    content: '<div class="table-responsive shopping_cart_list">' +
+    '<table class="table table-hover text-nowrap" style="width: 100%">' +
+    '<thead>' +
+    '<tr>' +
+    '<th>品項</th>' +
+    '<th>單價金額</th>' +
+    '<th>數量</th>' +
+    '<th>加乘金額</th>' +
+    '</tr>' +
+    '</thead>' +
+    '<tbody id="summary">' +
+    '</tbody>' +
+    '</table>' +
+    '<div id="total_account" style="font-weight:bold;color:blue;text-align:right;">' +
+    '</div>' +
+    '</div>' 
+    
+    ,
+    onContentReady: function () {
+      // 顯示上傳檔案名稱
+      $(document).ready(function(){
+        // 打API
+        $.ajax({
+              type: "POST",
+              url: '/quick_summary',
+              data: data,
+              success: function(result){
+                let account = 0;
+                $.each( result['result'], function( key, value ) {
+                  context = '<tr>' + '<td>'+value[0]+'</td>' + '<td>'+value[1]+'</td>' + '<td>'+value[2]+'</td>' + '<td>'+value[3]+'</td>' + '</tr>';
+                  $('#summary').append(context);
+                  account += value[3];
+                });
+                $('#total_account').text('總金額：'+account);
+              }
+        })
+    });
+    },
+    buttons: {
+      OK:{
+        btnClass: 'btn-blue'
+      }
+    }
+});
+};
+
+// 刪除已點項目
+function del_order_item(order_no,order_name,item_name,item_price,item_num,item_remark){
+  let data = { data:JSON.stringify({
+    "order_no":order_no,
+    "order_name":order_name,
+    "item_name":item_name,
+    "item_price":item_price,
+    "item_num":item_num,
+    "item_remark":item_remark
+  })};
+  $.confirm({
+        title: '確定刪除此項目？不要誤刪別人的齁~',
+        buttons: {
+            confirm: {
+                btnClass: 'btn-blue',
+                action:function(){
+                  $('#successAlert').text("送出成功，請等待重整").show();
+                  $('#errorAlert').hide();
+                  // 打API
+                  $.ajax({
+                    type: "POST",
+                    url: '/del_order_item',
+                    data: data,
+                  }).done(function(){
+                    location.reload();
+                  });
+                }
+              },
+            cancel: {
+            }
+          }
+      });
+
+};
+
+//刪除開團
+function del_order_info(order_no){
+  let data = { data:JSON.stringify({"order_no":order_no}) };
+  $.confirm({
+        title: '確定刪除這個團？',
+        buttons: {
+            confirm: {
+                btnClass: 'btn-blue',
+                action:function(){
+                  $('#successAlert').text("送出成功，請等待重整").show();
+                  $('#errorAlert').hide();
+                  // 打API
+                  $.ajax({
+                    type: "POST",
+                    url: '/del_order_info',
+                    data: data,
+                  }).done(function(){
+                    location.reload();
+                  });
+                }
+              },
+            cancel: {
+            }
+          }
+      });
+};
+
+
+// 加入購物車
+function add_shopping_cart(order_no){
+  $('#'+order_no+'_shopping_cart').show();
+  let order_name = $('#'+order_no+'_order_name').val();
+  let item_select = $('#'+order_no+'_item_select').val().split(' ');
+  let item_num = $('#'+order_no+'_item_num').val();
+  let item_remark = $('#'+order_no+'_item_remark').val();
+  if(order_name==='' | item_num<1) alert("內容輸入有誤，請檢查一下")
+  else {
+    $('#'+order_no+'_shopping_cart_list').append(""+
+    "<tr>" +
+      "<td>"+order_name+"</td>" +
+      "<td>"+item_select[0]+"</td>" +
+      "<td>"+item_select[1]+"</td>" +
+      "<td>"+item_num+"</td>" +
+      "<td>"+item_remark+"</td>" +
+    "</tr>"
+  )
+  };
+};
+
+// 送出購物車
+function submit_shopping_cart(order_no,store_no){
+  let arrData=[];
+  $("#"+order_no+"_shopping_cart_list tr").each(function(){
+    var currentRow=$(this);
+    var order_name=currentRow.find("td:eq(0)").text();
+    var item=currentRow.find("td:eq(1)").text();
+    var item_price=currentRow.find("td:eq(2)").text();
+    var item_num=currentRow.find("td:eq(3)").text();
+    var item_remark=currentRow.find("td:eq(4)").text();
+    var obj=[order_no,store_no,order_name,item,item_price,item_num,item_remark];
+    arrData.push(obj);
+  });
+  console.log(arrData);
+  $.confirm({
+        title: '確定送出？',
+        buttons: {
+            confirm: {
+                btnClass: 'btn-blue',
+                action:function(){
+                  $('#successAlert').text("送出成功，請等待重整").show();
+                  $('#errorAlert').hide();
+                  // 打API
+                  $.ajax({
+                    type: "POST",
+                    url: '/add_order_list',
+                    data: JSON.stringify(arrData),
+                    contentType: "application/json",
+                    dataType: "JSON",
+                    success: function(response) {
+                    }
+                  }).done(function(){
+                    location.reload();
+                  });
+                }
+              },
+            cancel: {
+            }
+          }
+      });
+
+
+};
+
+
+
+
+
+
 $(document).ready(function(){
 
   // 顯示星數
@@ -301,6 +487,9 @@ $(document).ready(function(){
             return $('<i />', { 'class' : 'fa fa-star star-full', 'style':'color:orange' });
         });
       });
+
+
+
 
 
 

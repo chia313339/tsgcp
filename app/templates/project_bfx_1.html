@@ -71,15 +71,34 @@
               <div class="tab-pane fade" id="nav-eva" role="tabpanel" aria-labelledby="nav-eva-tab">
                 <div style="padding: 10px;">
                   <h4 id="-">驗測標準</h4>
-                  <p>請預測 test data 的部位結果，分別是 0、1、2、3 四種結果，代表無、龜裂、不完全骨折、完全骨折。分數計算方式使用 accuracy 為指標。上傳檔案範本請參考附件 submission.csv。</p>
-                  <br>
+                  <ol>
+                    <li>BFX_codedkeys.csv 是BFX資料對照表</li>
+                    <li>訓練過程中需要參照的答案有4個欄位<ul>
+                    <li>CODED_PART: 部位 (24個部位(包含無)，plz refer to範例)</li>
+                    <li>CODED_LEVEL: 嚴重程度 (0/1/2/3)</li>
+                    <li>CODED_APLY: 受編，上傳答案的ＫＥＹ</li>
+                    <li>filename: 影像檔案名</li>
+                    </ul>
+                    </li>
+                    <li>RAW DICOM的資料已經先被整理過，整理成DICOM或是純ARRAY格式。</li>
+                    <li>ARRAY的訓練放在 /array/train/... ，檔案格式為joblib 讀取請見範例。</li>
+                    <li>上傳答案需包含CODED_APLY, CODED_PART, CODED_LEVEL。</li>
+                    <li>幾個欄位註記：<ul>
+                    <li>IS_NEG : 是不是白底照</li>
+                    <li>APLY_IS_UP_EXM : 受編是否是屬於上肢</li>
+                    <li>APLY_IS_LOW_EXM :受編是否是屬於下肢</li>
+                    </ul>
+                    </li>
+                    </ol>
+                    <br>
+                    <p>如有未盡事項請參考 notebook 環境內的文件。</p>
                   <a href="{{ url_for('static', filename='page/project_bfx/img/bfx_3.jpg')}}" class="example-image-link" data-lightbox="example-set" style="padding: 2px;"><img src="{{ url_for('static', filename='page/project_bfx/img/bfx_3.jpg')}}" width="500"></a>
                   
                 </div>
               </div>
               <div class="tab-pane fade" id="nav-sub" role="tabpanel" aria-labelledby="nav-sub-tab">
                 <div style="padding: 10px;">
-                  <p>可以參考附件的 submission.csv，第一個欄位是BFX編號，第二個欄位是結果，只會有 0、1、2、3 四種結果，分別代表無、龜裂、不完全骨折、完全骨折。</p>
+                  <p>上傳附件格式請參考附件的 BFX_EXAMPLE.csv，內容請詳閱驗測標準，排行榜預設以 acc_part_overall 作為指標。</p>
                 </div>
               </div>
             </div>
@@ -109,22 +128,22 @@
                   <td><a href="https://storage.googleapis.com/treebucket2021/array.zip"><button type="button" class="btn btn-primary float-right btn-sm" style="margin-right:"><i class="fas fa-download"></i></button></a></td>
                 </tr>
                 <tr>
-                  <th>BFX_keys.csv</th>
-                  <td>663.6KB</td>
+                  <th>BFX_codedkeys.csv</th>
+                  <td>232KB</td>
                   <td>資料說明</td>
-                  <td><a href="https://storage.googleapis.com/treebucket2021/BFX_keys.csv"><button type="button" class="btn btn-primary float-right btn-sm" style="margin-right:"><i class="fas fa-download"></i></button></a></td>
+                  <td><a href="https://storage.googleapis.com/treebucket2021/BFX_codedkeys.csv"><button type="button" class="btn btn-primary float-right btn-sm" style="margin-right:"><i class="fas fa-download"></i></button></a></td>
                 </tr>
                 <tr>
                   <th>BFX_範例.ipynb</th>
-                  <td>163.4KB</td>
+                  <td>173.7KB</td>
                   <td>程式範例，記得絕對路徑要改一下</td>
                   <td><a href="https://storage.googleapis.com/treebucket2021/BFX_%E7%AF%84%E4%BE%8B.ipynb"><button type="button" class="btn btn-primary float-right btn-sm" style="margin-right:"><i class="fas fa-download"></i></button></a></td>
                 </tr>
                 <tr>
-                  <th>submission.csv</th>
-                  <td>8.5KB</td>
+                  <th>BFX_EXAMPLE.csv</th>
+                  <td>1.2KB</td>
                   <td>上傳csv範例</td>
-                  <td><a href="https://storage.googleapis.com/treebucket2021/submission.csv"><button type="button" class="btn btn-primary float-right btn-sm" style="margin-right:"><i class="fas fa-download"></i></button></a></td>
+                  <td><a href="https://storage.googleapis.com/treebucket2021/BFX_EXAMPLE.csv"><button type="button" class="btn btn-primary float-right btn-sm" style="margin-right:"><i class="fas fa-download"></i></button></a></td>
                 </tr>
 
                 

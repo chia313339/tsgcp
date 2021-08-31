@@ -20,7 +20,8 @@ def index():
     msg_board = get_data_from_pgdb(pgdb_config,msg_board_sql)
     testimonials_list_sql = '''SELECT no, name, title, context, pic_url  FROM public.testimonials where del_flg <> 1 order by no desc'''
     testimonials_list = get_data_from_pgdb(pgdb_config,testimonials_list_sql)
-    return render_template('index.html', wiki=wiki, msg_board=msg_board,broadcast_list=broadcast_list, testimonials_list=testimonials_list)
+    order_info = get_order_info()[0]
+    return render_template('index.html', wiki=wiki, msg_board=msg_board,broadcast_list=broadcast_list, testimonials_list=testimonials_list,order_info=order_info)
 
 def wiki():
     return render_template('wiki.html')
@@ -42,7 +43,11 @@ def jupyter():
 
 def food_order():
     order_info = get_order_info()
-    return render_template('food_order.html',order_info = order_info)
+    order_list = []
+    for idx, val in enumerate(order_info):
+        tmp = get_order_list(val[0])
+        order_list.append(tmp)
+    return render_template('food_order.html',order_info = order_info,order_list=order_list)
 
 def food_setting():
     store_info_list = show_store()
@@ -52,7 +57,7 @@ def project_bfx_1():
     return render_template('project_bfx_1.html')
 
 def project_bfx_2():
-    leaderboard_list_sql = '''SELECT * FROM project_bfx where del_flg <> '1' order by score desc,no desc;'''
+    leaderboard_list_sql = '''SELECT * FROM project_bfx where del_flg <> '1' order by acc_part_overall desc,no desc;'''
     leaderboard_list = get_data_from_pgdb(pgdb_config,leaderboard_list_sql)
     return render_template('project_bfx_2.html',leaderboard_list=leaderboard_list)
 
@@ -70,9 +75,6 @@ def page_not_found(e):
 
 def test():
     return render_template('test.html')
-
-
-
 
 
 

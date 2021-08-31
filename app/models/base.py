@@ -7,6 +7,7 @@ import pandas as pd
 import sqlalchemy
 from flask import send_from_directory
 from flask import render_template, redirect, url_for, request, flash, jsonify
+from psycopg2.extras import RealDictCursor
 
 pgdb_config={
 'host':'34.135.113.78',

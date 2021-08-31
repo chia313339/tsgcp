@@ -50,31 +50,29 @@
           <div class="col-md-6">
             <div class="card card-default">
               <div class="card-header">
-                <h2 class="card-title" style="font-weight: bold; color:#00B050;">今日訂餐</h2>
+                <h2 class="card-title" style="font-weight: bold; color:#00B050;">今日訂餐 {{ '' if order_info[4] == 0 else '(已結單)' }}</h2>
               </div>
               <div class="card-body">
-                <b style="color: red;">開發中敬請期待</b> 
-                <br>
                 <div style="text-align:center;">
-                  <a href="{{ url_for('static', filename='page/food/img/10021.jpg')}}" class="example-image-link" data-lightbox="example-set"><img class="img-fluid example-image" src="{{ url_for('static', filename='page/food/img/10021.jpg')}}" width="300" alt="Photo"></a>
+                  <a href="{{ url_for('static', filename='page/food/img/'+order_info[11]+'.jpg')}}" class="example-image-link" data-lightbox="example-set"><img class="img-fluid example-image" src="{{ url_for('static', filename='page/food/img/'+order_info[11]+'.jpg')}}" style='height: 220px; width: auto; object-fit: contain'></a>
                 </div>
                 <br>
                 <div class="row">
                   <div class="col-md-6">
-                    <span style="font-weight: bold;">訂購者：</span><span style="color:#616161;">訂購人</span> <br>
-                    <span style="font-weight: bold;">今日菜單：</span><span style="color:#616161;">八方雲集</span> <br>
-                    <span style="font-weight: bold;">截止時間：</span><span style="color:#616161;">2021-07-01 11:30</span>
+                    <span style="font-weight: bold;">訂購者：</span><span style="color:#616161;">{{order_info[2]}}</span> <br>
+                    <span style="font-weight: bold;">今日菜單：</span><span style="color:#616161;">{{order_info[7]}}</span> <br>
+                    
                   </div>
                   <div class="col-md-6">
-                    <span style="font-weight: bold;">已訂購人數：</span><span style="color:#616161;">6</span> <br>
-                    <span style="font-weight: bold;">餐廳評價：</span><span style="color:#616161;">3.5 <i class="fas fa-star" style="color: rgb(247, 119, 0);"></i></span>
+                    <span style="font-weight: bold;">截止時間：</span><span style="color:#616161;">{{order_info[3]}}</span> <br>
+                    <span style="font-weight: bold;">餐廳評價：</span><span style="color:#616161;">{{order_info[14]}} <i class="fas fa-star" style="color: rgb(247, 119, 0);"></i></span>
                   </div>
 
                 </div>
                 
               </div>
               <div class="card-footer" style="text-align:right;">
-                <a href="#" style="color:#00B050;">More </a>
+                <a href="{{ url_for('food_order') }}" style="color:#00B050;">More </a>
               </div>
             </div>
           </div>

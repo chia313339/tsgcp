@@ -3,6 +3,7 @@ from app.route import *
 
 def create_app():
     app = Flask(__name__)
+    app.config['JSON_AS_ASCII'] = False
     app.config['SECRET_KEY'] = 'thisisabookandimsupersmart123456'
     app.add_url_rule('/', 'index', index, methods=['GET', 'POST'])
     app.add_url_rule('/index', 'index', index, methods=['GET', 'POST'])
@@ -28,5 +29,9 @@ def create_app():
     app.add_url_rule('/edit_store_menu', 'edit_store_menu', edit_store_menu, methods=['POST'])
     app.add_url_rule('/del_store_menu', 'del_store_menu', del_store_menu, methods=['POST'])
     app.add_url_rule('/add_order_setting', 'add_order_setting', add_order_setting, methods=['POST'])
-    
+    app.add_url_rule('/add_order_list', 'add_order_list', add_order_list, methods=['POST'])
+    app.add_url_rule('/del_order_info', 'del_order_info', del_order_info, methods=['POST'])
+    app.add_url_rule('/del_order_item', 'del_order_item', del_order_item, methods=['POST'])
+    app.add_url_rule('/quick_summary', 'quick_summary', quick_summary, methods=['POST'])
+    app.add_url_rule('/get_order_list/<order_no>', 'get_order_list', get_order_list, methods=['GET'])
     return app

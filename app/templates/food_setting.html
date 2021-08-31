@@ -154,17 +154,29 @@
                               </select>
                             </div>
                             <div class="form-group">
+                              <label>店家評價 (事後可編輯)</label>
+                              <select id="star" name="star"  class="form-control" style="width: 100%">
+                                <option value="5">幹爆好吃</option>
+                                <option value="4">還不錯吃</option>
+                                <option value="3" selected>小拉達等級</option>
+                                <option value="2">勉強還算是食物</option>
+                                <option value="1">這給人吃的?</option>
+                                <option value="0">難吃印(蓋)</option>
+                              </select>
+                            </div>
+                            <div class="form-group">
                               <label>備註說明</label>
-                              <textarea class="form-control" rows="8" id="store_remark" name="store_remark" placeholder="Enter ..."></textarea>
+                              <input type="text" class="form-control" id="store_remark" name="store_remark" placeholder="Enter ...">
+                            </div>
+                            <div class="form-group">
+                              <label>店家照片</label>
+                              <div class="custom-file">
+                                <input type="file" id="pic1_file" name="pic1_file" class="custom-file-input" accept=".jpg, .png, .gif, .jpeg">
+                                <label class="custom-file-label">Choose img file</label>
+                              </div>
                             </div>
                           </div>
-                          <div class="form-group col-md-12">
-                            <label>店家照片</label>
-                            <div class="custom-file">
-                              <input type="file" id="pic1_file" name="pic1_file" class="custom-file-input" accept=".jpg, .png, .gif, .jpeg">
-                              <label class="custom-file-label">Choose img file</label>
-                            </div>
-                          </div>
+
   
                         </div>
                         <button type="button" class="btn btn-primary" onclick="stepper.next()">Next</button>
@@ -245,7 +257,7 @@
                         <td>{{item[6]}}</td>
                         <td>{{item[10]}}</td>
                         <td>
-                          <button type="button" class="btn btn-primary" onclick="edit_store('{{item[0]}}','{{item[1]}}','{{item[4]}}','{{item[3]}}','{{item[6]}}','{{item[5]}}','{{menu}}')"><i class="fas fa-pen-alt"> 編輯</i></button>&nbsp;
+                          <button type="button" class="btn btn-primary" onclick="edit_store('{{item[0]}}','{{item[1]}}','{{item[4]}}','{{item[3]}}','{{item[6]}}','{{item[5]}}','{{menu}}','{{item[8]}}')"><i class="fas fa-pen-alt"> 編輯</i></button>&nbsp;
                           <a href="#order_head"><button type="button" class="btn btn-success" onclick="store_select('{{item[0]}}')"><i class="fas fa-hamburger"> 開團</i></button></a>
                         </td>
                     </tr>
@@ -384,14 +396,13 @@
 
 
     // 編輯店家
-    function edit_store(store_no,name,tel,add,remark,pic,menu){
+    function edit_store(store_no,name,tel,add,remark,pic,menu,star){
       menu =  menu.replaceAll("rn","\n");
       
 
       $.confirm({
         title: '編輯店家資訊',
-        content:
-        content= '' +
+        content: '' +
         '<form class="formName" id="edit_store_menu" enctype="multipart/form-data">' +
         '<div class="form-group">' +
         '<label>店家編號</label>' +
@@ -408,6 +419,12 @@
         '<div class="form-group">' +
         '<label>店家地址</label>' +
         '<input type="text" value="'+add+'" class="form-control" id="new_add" name="new_add" />' +
+        '</div>' +
+        '<div class="form-group">' +
+        '<label>店家評價</label>' +
+        '<select id="new_star" name="new_star" class="form-control" style="width: 100%">' +
+        '<option value="5">幹爆好吃</option><option value="4">還不錯吃</option><option value="3">小拉達等級</option><option value="2">勉強還算是食物</option><option value="1">這給人吃的?</option><option value="0">難吃印(蓋)</option>' +
+        '</select>' + 
         '</div>' +
         '<div class="form-group">' +
         '<label>備註</label>' +
@@ -429,9 +446,10 @@
         onContentReady: function () {
           // 顯示上傳檔案名稱
           $(document).ready(function(){
-                $(".custom-file-input").change(function () {
-                  $(this).next(".custom-file-label").html($(this).val().split("\\").pop());
-                });
+            $("#new_star").val(star).change();
+            $(".custom-file-input").change(function () {
+              $(this).next(".custom-file-label").html($(this).val().split("\\").pop());
+            });
         });
         },
         buttons: {
@@ -446,6 +464,8 @@
                         confirm: {
                             btnClass: 'btn-blue',
                             action:function(){
+                              $('#successAlert').text("送出成功，請等待重整").show();
+                              $('#errorAlert').hide();
                               // 打API
                               $.ajax({
                                 type: "POST",
