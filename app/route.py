@@ -20,7 +20,10 @@ def index():
     msg_board = get_data_from_pgdb(pgdb_config,msg_board_sql)
     testimonials_list_sql = '''SELECT no, name, title, context, pic_url  FROM public.testimonials where del_flg <> 1 order by no desc'''
     testimonials_list = get_data_from_pgdb(pgdb_config,testimonials_list_sql)
-    order_info = get_order_info()[0]
+    try:
+        order_info = get_order_info()[0]
+    except:
+        order_info = None
     return render_template('index.html', wiki=wiki, msg_board=msg_board,broadcast_list=broadcast_list, testimonials_list=testimonials_list,order_info=order_info)
 
 def wiki():

@@ -50,9 +50,10 @@
           <div class="col-md-6">
             <div class="card card-default">
               <div class="card-header">
-                <h2 class="card-title" style="font-weight: bold; color:#00B050;">今日訂餐 {{ '' if order_info[4] == 0 else '(已結單)' }}</h2>
+                <h2 class="card-title" style="font-weight: bold; color:#00B050;">今日訂餐</h2>
               </div>
-              <div class="card-body">
+              {% if order_info %}
+              <div class="card-body" style="height: 200px;">
                 <div style="text-align:center;">
                   <a href="{{ url_for('static', filename='page/food/img/'+order_info[11]+'.jpg')}}" class="example-image-link" data-lightbox="example-set"><img class="img-fluid example-image" src="{{ url_for('static', filename='page/food/img/'+order_info[11]+'.jpg')}}" style='height: 220px; width: auto; object-fit: contain'></a>
                 </div>
@@ -71,6 +72,15 @@
                 </div>
                 
               </div>
+              {% else %}
+              <div class="card-body" >
+                <div style="text-align:center;">
+                  <a href="{{ url_for('static', filename='page/food/img/no_order.jpg')}}" class="example-image-link" data-lightbox="example-set"><img class="img-fluid example-image" src="{{ url_for('static', filename='page/food/img/no_order.jpg')}}" style='height: 220px; width: auto; object-fit: contain'></a>
+                </div>
+                <br>
+                <div class="alert alert-danger" role="alert">啊就沒人開團</div>
+              </div>
+              {% endif %}
               <div class="card-footer" style="text-align:right;">
                 <a href="{{ url_for('food_order') }}" style="color:#00B050;">More </a>
               </div>

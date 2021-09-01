@@ -75,7 +75,13 @@ def get_order_info():
     sqls = '''SELECT order_no, order_store_no, order_owner, order_deadline, case when order_deadline > CURRENT_TIMESTAMP + (8 * interval '1 hour') then 0 else 1 end as states, order_remark, A.update_time, store_name, store_class, store_add, store_tel, pic_file, store_remark, store_menu, star, order_times
 	FROM public.food_order_setting A left join public.food_store_menu B on order_store_no = store_no
 	WHERE A.del_flg <>1 and order_deadline > current_date+ (8 * interval '1 hour') order by A.update_time desc'''
-    order_info = get_data_from_pgdb(pgdb_config,sqls)
+    try:
+        order_info = get_data_from_pgdb(pgdb_config,sqls)
+        print('成功更新')
+    except Exception as e:
+        print('更新失敗')
+        print(e)
+    
     return order_info
 
 # 新增訂單

@@ -23,7 +23,7 @@
 
   <div class="content">
     <div class="container-fluid">
-      <div id="no_order" class="alert alert-danger" role="alert" style="display:none;">今日尚無訂單</div>
+      <div id="no_order" class="alert alert-danger" role="alert" {{ '' if order_info  else 'style="display:none;"' }} >今日尚無訂單</div>
     </div>
   </div>
 
