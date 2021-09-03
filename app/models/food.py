@@ -43,12 +43,27 @@ def del_order_info():
 
 # 取得訂單訂購內容
 def get_order_list(order_no):
-    sqls = '''SELECT order_no, store_no, order_name, item_name, item_price, item_num, item_remark, update_time, del_flg
+    sqls = '''SELECT order_no, store_no, order_name, item_name, item_price, item_num, item_remark, update_time, del_flg, paid_flg
 	FROM public.food_order
 	WHERE order_no = %s and del_flg<>1
 	order by update_time desc''' % (order_no)
     order_list = get_data_from_pgdb(pgdb_config,sqls)
     return order_list
+
+
+# 付錢切換
+def paid_money():
+    data = json.loads(request.form.get('data'))
+    sqls = '''UPDATE public.food_order SET paid_flg='%s' 
+    WHERE order_no='%s' and order_name='%s' and item_name='%s' and item_price='%s' and item_num='%s' and item_remark='%s'
+    ''' % ( data['paid_flg'], data['order_no'],data['order_name'],data['item_name'],data['item_price'],data['item_num'],data['item_remark'])
+    try:
+        write_db(pgdb_config,sqls)
+        print('成功更新')
+    except Exception as e:
+        print('更新失敗')
+        print(e)
+    return redirect(url_for('food_order'))
 
 
 
@@ -58,8 +73,8 @@ def add_order_list():
     update_time = datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")
     for item in data:
         sqls = '''INSERT INTO public.food_order(
-        order_no, store_no, order_name, item_name, item_price, item_num, item_remark, update_time, del_flg)
-        VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s');''' % (item[0],item[1],item[2],item[3],item[4],item[5],item[6],update_time,0)
+        order_no, store_no, order_name, item_name, item_price, item_num, item_remark, update_time, del_flg, paid_flg)
+        VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s');''' % (item[0],item[1],item[2],item[3],item[4],item[5],item[6],update_time,0,0)
         try:
             write_db(pgdb_config,sqls)
             print('成功更新')

@@ -263,7 +263,7 @@
                         <td>{{item[6]}}</td>
                         <td>
                           <button type="button" class="btn btn-danger" onclick="del_order_item('{{item[0]}}','{{item[2]}}','{{item[3]}}','{{item[4]}}','{{item[5]}}','{{item[6]}}')" {{ '' if order_info_item[4] == 0 else 'style=display:none;' }}><i class="fas fa-trash"></i></button>
-                          <button type="button" class="btn btn-primary" onclick="" {{ '' if order_info_item[4] == 0 else 'style=display:none;' }}><i class="fas fa-hand-holding-usd"></i></button>
+                          <button type="button" class="btn {{ 'btn-primary' if item[9] == 0 else 'btn-secondary' }} "  onclick="paid_money('{{item[0]}}','{{item[2]}}','{{item[3]}}','{{item[4]}}','{{item[5]}}','{{item[6]}}','{{item[9]}}')" {{ '' if order_info_item[4] == 0 else 'style=display:none;' }}><i class="fas fa-hand-holding-usd"></i></button>
                         </td>
                       </tr>
                       {% endfor %}
@@ -345,6 +345,36 @@ function quick_summary(order_no){
       }
     }
 });
+};
+
+// 已付錢
+function paid_money(order_no,order_name,item_name,item_price,item_num,item_remark,paid_flg){
+  
+  if(paid_flg==='0'){
+    var paid_flg_n = '1';
+    alert("收到錢錢~")
+  }
+  else{
+    var paid_flg_n = '0';
+    alert("沒繳錢不要亂點齁！")
+  };
+  let data = { data:JSON.stringify({
+    "order_no":order_no,
+    "order_name":order_name,
+    "item_name":item_name,
+    "item_price":item_price,
+    "item_num":item_num,
+    "item_remark":item_remark,
+    "paid_flg":paid_flg_n
+  })};
+  
+  $.ajax({
+      type: "POST",
+      url: '/paid_money',
+      data: data,
+    }).done(function(){
+      location.reload();
+    });
 };
 
 // 刪除已點項目

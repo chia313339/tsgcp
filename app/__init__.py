@@ -33,5 +33,6 @@ def create_app():
     app.add_url_rule('/del_order_info', 'del_order_info', del_order_info, methods=['POST'])
     app.add_url_rule('/del_order_item', 'del_order_item', del_order_item, methods=['POST'])
     app.add_url_rule('/quick_summary', 'quick_summary', quick_summary, methods=['POST'])
+    app.add_url_rule('/paid_money', 'paid_money', paid_money, methods=['POST'])
     app.add_url_rule('/get_order_list/<order_no>', 'get_order_list', get_order_list, methods=['GET'])
     return app
