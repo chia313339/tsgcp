@@ -7,9 +7,6 @@ import os
 
 
 
-def ipynb2html(path,filename):
-    os.system("cd "+path+"; "+"jupyter nbconvert "+filename+".ipynb --to html;")
-    os.system("cd "+path+"; "+"jupyter nbconvert "+filename+".ipynb --to html;")
 
 def evaluation_metrics(df_ans, df_upload):
     '''
@@ -61,38 +58,38 @@ def evaluation_metrics(df_ans, df_upload):
           ACC_PART_NE, ACC_LEVEL_NE]
     return out
 
-def bfx_score(path,filename):
-    y_pred = pd.read_csv(os.path.join(path, filename+'.csv'))
-    y_ture = pd.read_csv(os.path.join(path, 'bfx_answer.csv'))
+def bfx_score(filename):
+    y_pred = pd.read_csv("https://storage.googleapis.com/treebucket2021/files/bfx/"+filename+".csv")
+    y_ture = pd.read_csv("https://storage.googleapis.com/treebucket2021/files/bfx/bfx_answer.csv")
     result = evaluation_metrics(y_ture,y_pred)
     return result
 
 def project_bfx_evaluation():
-    path = os.path.join(os.getcwd(),'app','static','page','project_bfx','file')
+    gcp_path = os.path.join('files','bfx')
     name = request.form['bfx_name']
     des = request.form['bfx_des']
     f_csv = request.files['bfx_csv']
     f_nb = request.files['bfx_nb']
     update_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     lastname = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
-    filename = str(name +"_"+ lastname)
+    filename = str("bfx_"+ lastname)
+
     # 上傳資料、計算分數
     if f_nb:
         try:
-            f_csv.save(os.path.join(path, filename+'.csv'))
-            f_nb.save(os.path.join(path, filename+'.ipynb'))
+            csv_url = upload_gcp(str(filename+".csv"),f_csv,gcp_path)
+            nb_url = ipynb2html(filename,f_nb,gcp_path)
             print("有nb")
-            ipynb2html(path,filename)
-            score = bfx_score(path,filename)
-            sqls = '''INSERT INTO project_bfx(name, csv_file, nb_file, des, acc_part_overall, acc_level_overall, acc_part_ue, acc_level_ue, acc_part_le, acc_level_le, acc_part_ne, acc_level_ne, etl_date, del_flg) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', 0);''' % (name, filename+'.csv', filename+'.ipynb', des, score[0], score[1], score[2], score[3], score[4], score[5], score[6], score[7], update_time)
+            score = bfx_score(filename)
+            sqls = '''INSERT INTO project_bfx(name, csv_file, nb_file, des, acc_part_overall, acc_level_overall, acc_part_ue, acc_level_ue, acc_part_le, acc_level_le, acc_part_ne, acc_level_ne, etl_date, del_flg) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', 0);''' % (name, csv_url, nb_url, des, score[0], score[1], score[2], score[3], score[4], score[5], score[6], score[7], update_time)
         finally:
             print('done')
     else:
         try:
-            f_csv.save(os.path.join(path, filename+'.csv'))
+            csv_url = upload_gcp(str(filename+".csv"),f_csv,gcp_path)
             print("只有csv")
-            score = bfx_score(path,filename)
-            sqls = '''INSERT INTO project_bfx(name, csv_file, nb_file, des, acc_part_overall, acc_level_overall, acc_part_ue, acc_level_ue, acc_part_le, acc_level_le, acc_part_ne, acc_level_ne, etl_date, del_flg) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', 0);''' % (name, filename+'.csv', filename+'.ipynb', des, score[0], score[1], score[2], score[3], score[4], score[5], score[6], score[7], update_time)
+            score = bfx_score(filename)
+            sqls = '''INSERT INTO project_bfx(name, csv_file, nb_file, des, acc_part_overall, acc_level_overall, acc_part_ue, acc_level_ue, acc_part_le, acc_level_le, acc_part_ne, acc_level_ne, etl_date, del_flg) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', 0);''' % (name, csv_url, '', des, score[0], score[1], score[2], score[3], score[4], score[5], score[6], score[7], update_time)
         finally:
             print('done')
     # 寫入DB"

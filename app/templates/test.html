@@ -16,46 +16,43 @@
     <source>
 </head>
 <body>
-    <div>
-        <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" id="bt">使用click語法</button>
-<button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal" id="bt2" onclick="onclick_fun(123)">使用onclick語法</button>
 
+    <form method="POST" id="test" enctype='multipart/form-data'>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text" id = "bfx_name" name = "bfx_name" class="form-control" placeholder="Who r u..." required>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label>Upload submission file</label>
+              <div class="custom-file">
+               <input type="file" id = "bfx_csv" name = "bfx_csv" class="custom-file-input" accept=".csv, .CSV" required>
+               <label class="custom-file-label" for="submissionFile">Choose cav file</label>
+             </div>
+           </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label>Upload Notebook (非必要)</label>
+              <div class="custom-file">
+               <input type="file" id = "bfx_nb" name = "bfx_nb" class="custom-file-input" accept=".ipynb, .IPYNB">
+               <label class="custom-file-label" for="notebookFile">Choose ipynb file</label>
+             </div>
+           </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Describe submission</label>
+          <textarea class="form-control" id = "bfx_des" name = "bfx_des" rows="3" placeholder="Enter ..."></textarea>
+        </div>
+        <button type="submit" id = "bfx_submit" class="btn btn-info float-right">Make Submission</button>
+      </form>
+ 
   <script>
-    //   click
-    $('#bt').click(function(){
-        $.confirm({
-            title: 'Confirm!',
-            content: 'Simple confirm!',
-            buttons: {
-                confirm:{
-                    btnClass: 'btn-blue',
-                    action: function () {$.alert('Confirmed!')}
-                },
-                cancel: function () {
-                    $.alert('Canceled!');
-                }
-            }
-        });
-    });
-
-    // onclick
-    function onclick_fun(id){
-        console.log(id);
-        $.confirm({
-            title: 'Confirm!',
-            content: 'Simple confirm!',
-            buttons: {
-                confirm:{
-                    btnClass: 'btn-blue',
-                    action: function () {$.alert('Confirmed!')}
-                },
-                cancel: function () {
-                    $.alert('Canceled!');
-                }
-            }
-        });
-    }
+    
 
         
   </script>

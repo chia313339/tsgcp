@@ -249,7 +249,7 @@
                     {% for item in store_info_list %}
                     {% set menu =  item[7]|replace("\r\n", "rn") %}
                       <tr>
-                        <td ><a href="{{ url_for('static', filename='page/food/img/'+item[5]+'.jpg')}}" class="example-image-link" data-lightbox="example-set"><img src="{{ url_for('static', filename='page/food/img/'+item[5]+'.jpg')}}" style="height: 80px;" alt=""></a></td>
+                        <td ><a href="https://storage.cloud.google.com/treebucket2021/images/food/{{item[5]}}.jpg" class="example-image-link" data-lightbox="example-set"><img src="https://storage.cloud.google.com/treebucket2021/images/food/{{item[5]}}.jpg" style="height: 80px;" alt=""></a></td>
                         <td>{{item[1]}}</td>
                         <td>{{item[2]}}</td>
                         <td class="star-rating">{{item[8]}}</td>
@@ -299,8 +299,13 @@
       let order_deadline = $('#order_deadline').val();
       let order_remark = $('#order_remark').val();
       console.log(order_deadline)
-      
-      var data = {
+      console.log(order_owner)
+      if(order_owner==='' | order_deadline==='' ){
+        $('#successAlert').hide();
+        $('#errorAlert').text("輸入內容有誤，請確認！").show();
+      }
+      else {
+        var data = {
                   data:JSON.stringify({
                     'order_no':order_no,
                     'order_store_no':order_store_no,
@@ -331,6 +336,8 @@
             }
           }
       });
+      }
+      
        
     
     })

@@ -8,7 +8,7 @@ import os
 # 快速結算
 def quick_summary():
     data = json.loads(request.form.get('data'))
-    sqls = '''SELECT item_name,cast(item_price as integer) as item_price,sum(item_num) as item_num_sum, cast( item_price * sum(item_num) as integer)as item_account
+    sqls = '''SELECT item_name,item_price ,sum(item_num) as item_num_sum, cast( item_price * sum(item_num) as integer)as item_account
 	FROM public.food_order
 	where del_flg<>1 and order_no=%s
 	group by item_name,item_price''' % (data['order_no'])
@@ -43,7 +43,7 @@ def del_order_info():
 
 # 取得訂單訂購內容
 def get_order_list(order_no):
-    sqls = '''SELECT order_no, store_no, order_name, item_name, cast(item_price as integer) as item_price, item_num, item_remark, update_time, del_flg
+    sqls = '''SELECT order_no, store_no, order_name, item_name, item_price, item_num, item_remark, update_time, del_flg
 	FROM public.food_order
 	WHERE order_no = %s and del_flg<>1
 	order by update_time desc''' % (order_no)
@@ -72,9 +72,9 @@ def add_order_list():
 
 # 取得今日未到期訂單資訊
 def get_order_info():
-    sqls = '''SELECT order_no, order_store_no, order_owner, order_deadline, case when order_deadline > CURRENT_TIMESTAMP + (8 * interval '1 hour') then 0 else 1 end as states, order_remark, A.update_time, store_name, store_class, store_add, store_tel, pic_file, store_remark, store_menu, star, order_times
+    sqls = '''SELECT order_no, order_store_no, order_owner, order_deadline, case when order_deadline > CURRENT_TIMESTAMP  then 0 else 1 end as states, order_remark, A.update_time, store_name, store_class, store_add, store_tel, pic_file, store_remark, store_menu, star, order_times
 	FROM public.food_order_setting A left join public.food_store_menu B on order_store_no = store_no
-	WHERE A.del_flg <>1 and order_deadline > current_date+ (8 * interval '1 hour') order by A.update_time desc'''
+	WHERE A.del_flg <>1 and order_deadline > current_date order by A.update_time desc'''
     try:
         order_info = get_data_from_pgdb(pgdb_config,sqls)
         print('成功更新')
@@ -125,8 +125,9 @@ def add_store_menu():
 
     # 看有無圖片
     if pic1_file:
+        gcp_path = os.path.join('images','food')
         pic1_file_name = str(store_no)
-        pic1_file.save(os.path.join(path, pic1_file_name+'.jpg'))
+        pic_utl = upload_gcp(pic1_file_name+".jpg",pic1_file,gcp_path)
     
     # 不用解析菜單，直接存text
     # 寫入DB
@@ -153,15 +154,19 @@ def edit_store_menu():
     store_menu = request.form['new_menu']
     star = request.form['new_star']
     update_time = datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")
-    pic1_file_name = str(store_no)
 
     # # 看有無圖片
     if pic1_file:
-        pic1_file.save(os.path.join(path, pic1_file_name+'.jpg'))
+        gcp_path = os.path.join('images','food')
+        pic1_file_name = str(store_no)
+        pic_utl = upload_gcp(pic1_file_name+".jpg",pic1_file,gcp_path)
+        sqls = '''UPDATE public.food_store_menu SET store_add='%s', store_tel='%s', pic_file='%s', store_remark='%s', store_menu='%s', update_time='%s',star='%s' WHERE store_no='%s';''' % (store_add, store_tel, pic1_file_name, store_remark, store_menu, update_time, star, store_no)
+    
+    else:
+        sqls = '''UPDATE public.food_store_menu SET store_add='%s', store_tel='%s', store_remark='%s', store_menu='%s', update_time='%s',star='%s' WHERE store_no='%s';''' % (store_add, store_tel, store_remark, store_menu, update_time, star, store_no)
     
     # # 不用解析菜單，直接存text
     # # 寫入DB
-    sqls = '''UPDATE public.food_store_menu SET store_add='%s', store_tel='%s', pic_file='%s', store_remark='%s', store_menu='%s', update_time='%s',star='%s' WHERE store_no='%s';''' % (store_add, store_tel, pic1_file_name, store_remark, store_menu, update_time, star, store_no)
     try:
         write_db(pgdb_config,sqls)
         print('成功更新')

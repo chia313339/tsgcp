@@ -29,6 +29,7 @@
         <div id="successAlert" class="alert alert-success" role="alert" style="display:none;"></div>
 	      <div id="errorAlert" class="alert alert-danger" role="alert" style="display:none;"></div>
 
+
         <!-- 區塊一 -->
         <!-- submit pred -->
         <div class="card card-default">
@@ -107,7 +108,7 @@
                     <td>
                       {% if item[3] !='' %}
                       {% set filename = item[3].split('.')[0] %}
-                      <a href="{{ url_for('static', filename='page/project_bfx/file/'+filename+'.html')}}" target="_blank"><button type="button" class="btn btn-warning btn-sm">Notebook</button></a>
+                      <a href="{{item[3]}}" target="_blank"><button type="button" class="btn btn-warning btn-sm">Notebook</button></a>
                       {% endif %}
                     </td>
                     <td>{{item[4]}}</td>

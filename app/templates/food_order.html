@@ -21,11 +21,11 @@
   </div>
   <!-- /.content-header -->
 
-  <div class="content">
+  <!-- <div class="content">
     <div class="container-fluid">
       <div id="no_order" class="alert alert-danger" role="alert" {{ '' if order_info  else 'style="display:none;"' }} >今日尚無訂單</div>
     </div>
-  </div>
+  </div> -->
 
   
 
@@ -62,12 +62,12 @@
             <div class="col-md-4" >
               <div style="top: 50%;text-align:center;">
                 <a
-                  href="{{ url_for('static', filename='page/food/img/'+order_info_item[11]+'.jpg')}}"
+                  href="https://storage.cloud.google.com/treebucket2021/images/food/{{order_info_item[11]}}.jpg"
                   class="example-image-link"
                   data-lightbox="example-set"
                   ><img
                     class="img-fluid example-image"
-                    src="{{ url_for('static', filename='page/food/img/'+order_info_item[11]+'.jpg')}}"
+                    src="https://storage.cloud.google.com/treebucket2021/images/food/{{order_info_item[11]}}.jpg"
                     style='height: 300px; width: auto; object-fit: contain'
                     alt=""
                 /></a>
