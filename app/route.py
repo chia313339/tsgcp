@@ -16,7 +16,7 @@ def index():
     wiki = get_wiki_recentchange()
     broadcast_list_sql = '''SELECT * FROM broadcast where del_flg <> '1' order by etl_date desc,no desc;'''
     broadcast_list = get_data_from_pgdb(pgdb_config,broadcast_list_sql)[0:5]
-    msg_board_sql = '''select * from simple_message_board where name <> '' and message <> '' order by no desc limit 10'''
+    msg_board_sql = '''select no, name, message, datetime + interval '8 hour' as dt from simple_message_board where name <> '' and message <> '' order by simple_message_board.datetime desc limit 10'''
     msg_board = get_data_from_pgdb(pgdb_config,msg_board_sql)
     testimonials_list_sql = '''SELECT no, name, title, context, pic_url  FROM public.testimonials where del_flg <> 1 order by no desc'''
     testimonials_list = get_data_from_pgdb(pgdb_config,testimonials_list_sql)
