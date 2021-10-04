@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% set open_page = "gmp_poc" %}
+{% set active_page = "gmp_poc" %}
+{% block content %}
+
+
+  <div class="content-wrapper" id = "wrapper_page">
+
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">GMP POC</h1>
+            <p style="color: gray;">
+              Google Maps Platform POC 使用，Jupyter環境密碼為 gpu-jupyter。</b> 
+            </p>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item active"></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.content-header -->
+
+    <div class="content">
+      <div class="container-fluid">
+
+        <!-- 區塊一 -->
+        <!-- 環境區 -->
+        <div class="card card-default">
+          <div class="card-body">
+            <a
+              href="http://35.184.131.167:8088"
+              class="btn btn-info btn-icon-split"
+              target="_blank"
+            >
+              <span class="icon text-white-50">
+                <i class="fas fa-code"></i>
+              </span>
+              <span class="text"> Jupyter 環境</span>
+            </a>
+          </div>
+        </div>
+
+
+         <!-- 區塊二 -->
+        <!-- 說明區 -->
+        <div class="card card-default">
+          <div class="card-body">
+            <h3 id="-">使用方法</h3>
+<p>使用GMP API前，需要開通相關服務，目前已開通服務：</p>
+<ul>
+<li>Directions API</li>
+<li>Distance Matrix API</li>
+<li>Geocoding API</li>
+<li>Places API</li>
+<li>Roads API</li>
+</ul>
+<p>API KEY：AIzaSyDHzsqYxiydXo6Xoe5VImq44dxSOfdRWqg</p>
+<p>使用說明可以參考<a href="https://developers.google.com/maps/documentation/distance-matrix/overview">官方文件</a>，實測發現寫有點爛，可以參考<a href="https://medium.com/how-to-use-google-distance-matrix-api-in-python/how-to-use-google-distance-matrix-api-in-python-ef9cd895303c">另一篇</a>，或自行關鍵字搜尋。</p>
+<p>所有API皆需要費用，可以參考<a href="https://cloud.google.com/maps-platform/pricing">官方說明</a>，建議打API不要超過1萬筆資料，避免突然爆量。文件建議放work資料夾內，會自動備份到地端。</p>
+<p>若有需要其他API，請直接聯繫工程組成員。</p>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+  </div> <!-- /.content-wrapper -->
+
+
+
+  {% endblock %}

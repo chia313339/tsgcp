@@ -19,6 +19,7 @@ def create_app():
     app.add_url_rule('/food_setting', 'food_setting', food_setting, methods=['GET', 'POST'])
     app.add_url_rule('/project_bfx_1', 'project_bfx_1', project_bfx_1, methods=['GET', 'POST'])
     app.add_url_rule('/project_bfx_2', 'project_bfx_2', project_bfx_2, methods=['GET', 'POST'])
+    app.add_url_rule('/gmp_poc', 'gmp_poc', gmp_poc, methods=['GET', 'POST'])
     app.register_error_handler(404, page_not_found)
     app.add_url_rule('/test', 'test', test, methods=['GET'])
     app.add_url_rule('/simple_message_board', 'simple_message_board', simple_message_board, methods=['POST'])

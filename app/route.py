@@ -72,6 +72,9 @@ def broadcast():
     broadcast_list = get_data_from_pgdb(pgdb_config,broadcast_list_sql)
     return render_template('broadcast.html',broadcast_list = broadcast_list)
 
+def gmp_poc():
+    return render_template('gmp_poc.html')
+
 def page_not_found(e):
     return render_template('404.html'), 404
 
