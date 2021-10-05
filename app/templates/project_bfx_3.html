@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% set open_page = "project_bfx" %}
-{% set active_page = "project_bfx_2" %}
+{% set active_page = "project_bfx_3" %}
 {% block content %}
 
 
@@ -11,9 +11,9 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">BFX Leaderboard (舊array)</h1>
+            <h1 class="m-0">BFX Leaderboard (新array)</h1>
             <p style="color: gray;">
-              以舊的 array 為訓練資料的結果預測，注意不要上傳錯囉。</b> 
+              以新的 array2 為訓練資料的結果預測，注意不要上傳錯囉。</b> 
             </p>
           </div>
           <div class="col-sm-6">
@@ -170,7 +170,7 @@
       else{
         $('#successAlert').text("送出成功，請等待運算").show();
         $('#errorAlert').hide();
-        $("#bfx_form").attr("action", "/project_bfx_evaluation");
+        $("#bfx_form").attr("action", "/project_bfx_evaluation2");
 
       }
       
