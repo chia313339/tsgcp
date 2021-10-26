@@ -10,6 +10,7 @@ from app.models.base import *
 from app.models.index import *
 from app.models.broadcast import *
 from app.models.project_bfx import *
+from app.models.project_embez import *
 from app.models.food import *
 
 
@@ -72,6 +73,15 @@ def project_bfx_3():
     leaderboard_list_sql = '''SELECT * FROM project_bfx2 where del_flg <> '1' order by acc_part_overall desc,no desc;'''
     leaderboard_list = get_data_from_pgdb(pgdb_config,leaderboard_list_sql)
     return render_template('project_bfx_3.html',leaderboard_list=leaderboard_list)
+
+
+def project_embez_1():
+    return render_template('project_embez_1.html')
+
+def project_embez_2():
+    leaderboard_list_sql = '''SELECT * FROM project_embez where del_flg <> '1' order by auc desc,no desc;'''
+    leaderboard_list = get_data_from_pgdb(pgdb_config,leaderboard_list_sql)
+    return render_template('project_embez_2.html',leaderboard_list=leaderboard_list)
 
 def create_jupyter():
     return render_template('create_jupyter.html')

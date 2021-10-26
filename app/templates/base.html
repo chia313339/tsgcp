@@ -244,44 +244,12 @@
             </ul>
           </li>
 
-
-          <!-- HAP -->
-          <!-- <li class="nav-item {{ 'menu-open' if open_page == 'hap' else '' }}">
-            <a href="#" class="nav-link {{ 'active' if open_page == 'hap' else '' }}">
-              <i class="nav-icon fab fa-hive"></i>
-              <p>
-                HAP 系統相關
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ url_for('jupyter') }}" class="nav-link {{ 'active' if active_page == 'jupyter' else '' }}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Hadoop Jupyter</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ url_for('hive') }}" class="nav-link {{ 'active' if active_page == 'hive' else '' }}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Hive 資料查詢系統</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link {{ 'active' if active_page == 'airflow' else '' }}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Airflow 排程系統</p>
-                </a>
-              </li>
-            </ul>
-          </li> -->
-
           <!-- project_bfx -->
           <li class="nav-item {{ 'menu-open' if open_page == 'project_bfx' else '' }}">
             <a href="#" class="nav-link {{ 'active' if open_page == 'project_bfx' else '' }}">
-              <i class="nav-icon fas fa-hospital-alt"></i>
+              <i class="nav-icon fab fa-cuttlefish"></i>
               <p>
-                BFX 影像辨識專案
+                Caggle BFX專案
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -307,6 +275,31 @@
             </ul>
           </li>
 
+
+          <!-- project_embez -->
+          <li class="nav-item {{ 'menu-open' if open_page == 'project_embez' else '' }}">
+            <a href="#" class="nav-link {{ 'active' if open_page == 'project_embez' else '' }}">
+              <i class="nav-icon fab fa-cuttlefish"></i>
+              <p>
+                Caggle 智能捕手
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ url_for('project_embez_1') }}" class="nav-link {{ 'active' if active_page == 'project_embez_1' else '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>專案及環境</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url_for('project_embez_2') }}" class="nav-link {{ 'active' if active_page == 'project_embez_2' else '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Leaderboard</p>
+                </a>
+              </li>
+            </ul>
+          </li>
 
         
           
