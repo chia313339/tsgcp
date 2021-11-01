@@ -23,7 +23,7 @@ def index():
     testimonials_list_sql = '''SELECT no, name, title, context, pic_url  FROM public.testimonials where del_flg <> 1 order by no desc'''
     testimonials_list = get_data_from_pgdb(pgdb_config,testimonials_list_sql)
 
-    order_owner = ["客智科","工程組","商智科"][abs(date.today() - date(2021,10,10)).days//7]
+    order_owner = ["客智科","工程組","商智科"][(abs(date.today() - date(2021,10,10)).days//7)%3]
 
     try:
         order_info = get_order_info()[0]
