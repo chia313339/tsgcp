@@ -16,8 +16,6 @@ from app.models.food import *
 
 def index():
     wiki = get_wiki_recentchange()
-    broadcast_list_sql = '''SELECT * FROM broadcast where del_flg <> '1' order by etl_date desc,no desc;'''
-    broadcast_list = get_data_from_pgdb(pgdb_config,broadcast_list_sql)[0:5]
     msg_board_sql = '''select no, name, message, datetime + interval '8 hour' as dt from simple_message_board where name <> '' and message <> '' order by simple_message_board.datetime desc limit 10'''
     msg_board = get_data_from_pgdb(pgdb_config,msg_board_sql)
     testimonials_list_sql = '''SELECT no, name, title, context, pic_url  FROM public.testimonials where del_flg <> 1 order by no desc'''
@@ -25,11 +23,10 @@ def index():
 
     order_owner = ["客智科","工程組","商智科"][(abs(date.today() - date(2021,10,10)).days//7)%3]
 
-    try:
-        order_info = get_order_info()[0]
-    except:
-        order_info = None
-    return render_template('index.html', wiki=wiki, msg_board=msg_board,broadcast_list=broadcast_list, testimonials_list=testimonials_list,order_info=order_info,order_owner=order_owner)
+
+    order_info = None
+
+    return render_template('index.html', wiki=wiki, msg_board=msg_board, testimonials_list=testimonials_list,order_info=order_info,order_owner=order_owner)
 
 def wiki():
     return render_template('wiki.html')

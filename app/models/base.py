@@ -20,7 +20,7 @@ from google.cloud import storage
 
 # 正式環境DB
 pgdb_config={
-'host':'35.234.13.240',
+'host':'34.80.244.193',
 'port':5432,
 'user':'treestudio',
 'password':'treestudio',
@@ -28,7 +28,7 @@ pgdb_config={
 }
 
 
-CLOUD_STORAGE_BUCKET = 'treebucket2021'
+CLOUD_STORAGE_BUCKET = 'treebucket202112'
 
 
 # ipynb轉html並上傳upload_gcp

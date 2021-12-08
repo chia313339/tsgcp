@@ -168,7 +168,7 @@
 
           <!-- 公告系統 -->
           <li class="nav-item">
-            <a href="{{ url_for('broadcast') }}" class="nav-link  {{ 'active' if active_page == 'broadcast' else '' }}">
+            <a href="#" class="nav-link  {{ 'active' if active_page == 'broadcast' else '' }}">
               <i class="nav-icon fas fa-bullhorn"></i>
               <p>
                 公告系統
@@ -244,76 +244,6 @@
             </ul>
           </li>
 
-          <!-- project_bfx -->
-          <li class="nav-item {{ 'menu-open' if open_page == 'project_bfx' else '' }}">
-            <a href="#" class="nav-link {{ 'active' if open_page == 'project_bfx' else '' }}">
-              <i class="nav-icon fab fa-cuttlefish"></i>
-              <p>
-                Caggle BFX專案
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ url_for('project_bfx_1') }}" class="nav-link {{ 'active' if active_page == 'project_bfx_1' else '' }}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>專案及環境</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ url_for('project_bfx_2') }}" class="nav-link {{ 'active' if active_page == 'project_bfx_2' else '' }}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Leaderboard 舊array</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ url_for('project_bfx_3') }}" class="nav-link {{ 'active' if active_page == 'project_bfx_3' else '' }}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Leaderboard 新array</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-
-
-          <!-- project_embez -->
-          <li class="nav-item {{ 'menu-open' if open_page == 'project_embez' else '' }}">
-            <a href="#" class="nav-link {{ 'active' if open_page == 'project_embez' else '' }}">
-              <i class="nav-icon fab fa-cuttlefish"></i>
-              <p>
-                Caggle 智能捕手
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ url_for('project_embez_1') }}" class="nav-link {{ 'active' if active_page == 'project_embez_1' else '' }}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>專案及環境</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ url_for('project_embez_2') }}" class="nav-link {{ 'active' if active_page == 'project_embez_2' else '' }}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Leaderboard</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-
-        
-          
-          
-
-          <!-- GMP POC -->
-          <li class="nav-item">
-            <a href="{{ url_for('gmp_poc') }}" class="nav-link  {{ 'active' if active_page == 'gmp_poc' else '' }}">
-              <i class="nav-icon fas fa-map-marked-alt"></i>
-              <p>
-                GMP POC
-              </p>
-            </a>
-          </li>
 
           <!-- 系統設定 -->
           <li class="nav-item {{ 'menu-open' if open_page == 'system' else '' }}">

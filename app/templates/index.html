@@ -24,17 +24,23 @@
             <h2 class="card-title" style="font-weight: bold; color:#00B050;">最新公告</h2>
           </div>
           <div class="card-body">
-            {% for item in broadcast_list %}
-              <div>
-                <p>
-                  <b style="padding-right: 20px;">{{item[4]}}</b>
-                  {{item[2]}}
-                  {% if item[3] != '' %}
-                  &nbsp;&nbsp;<a href="{{item[3]}}" target="_blank"><i class="fas fa-external-link-alt"></i></a>
-                  {% endif %}
-                </p>
-              </div>
-            {% endfor %}
+            <div>
+              <p>
+                <b style="padding-right: 20px;">2021-12-08</b>
+                測試123 
+                &nbsp;<a href="#" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+              </p>
+              <p>
+                <b style="padding-right: 20px;">2021-12-08</b>
+                測試456
+                &nbsp;<a href="#" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+              </p>
+              <p>
+                <b style="padding-right: 20px;">2021-12-08</b>
+                測試789
+                &nbsp;<a href="#" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+              </p>
+            </div>
           </div>
           <div class="card-footer" style="text-align:right;">
             <a href="{{ url_for('broadcast') }}" style="color:#00B050;">More </a>
@@ -52,35 +58,25 @@
               <div class="card-header">
                 <h2 class="card-title" style="font-weight: bold; color:#00B050;">今日訂餐</h2>
               </div>
-              {% if order_info %}
               <div class="card-body">
                 <div style="text-align:center;">
-                  <a href="https://storage.cloud.google.com/treebucket2021/images/food/{{order_info[11]}}.jpg" class="example-image-link" data-lightbox="example-set"><img class="img-fluid example-image" src="https://storage.cloud.google.com/treebucket2021/images/food/{{order_info[11]}}.jpg" style='height: 220px; width: auto; object-fit: contain'></a>
+                  <a href="https://i.imgur.com/HyPDAAX.jpg" class="example-image-link" data-lightbox="example-set"><img class="img-fluid example-image" src="https://i.imgur.com/HyPDAAX.jpg" style='height: 220px; width: auto; object-fit: contain'></a>
                 </div>
                 <br>
                 <div class="row">
                   <div class="col-md-6">
-                    <span style="font-weight: bold;">訂購者：</span><span style="color:#616161;">{{order_info[2]}}</span> <br>
-                    <span style="font-weight: bold;">今日菜單：</span><span style="color:#616161;">{{order_info[7]}}</span> <br>
+                    <span style="font-weight: bold;">訂購者：</span><span style="color:#616161;">KP</span> <br>
+                    <span style="font-weight: bold;">今日菜單：</span><span style="color:#616161;">尖牙廚房</span> <br>
                     
                   </div>
                   <div class="col-md-6">
-                    <span style="font-weight: bold;">截止時間：</span><span style="color:#616161;">{{order_info[3]}}</span> <br>
-                    <span style="font-weight: bold;">餐廳評價：</span><span style="color:#616161;">{{order_info[14]}} <i class="fas fa-star" style="color: rgb(247, 119, 0);"></i></span>
+                    <span style="font-weight: bold;">截止時間：</span><span style="color:#616161;">10:30</span> <br>
+                    <span style="font-weight: bold;">餐廳評價：</span><span style="color:#616161;">4<i class="fas fa-star" style="color: rgb(247, 119, 0);"></i></span>
                   </div>
 
                 </div>
                 
               </div>
-              {% else %}
-              <div class="card-body" >
-                <div style="text-align:center;">
-                  <a href="https://storage.cloud.google.com/treebucket2021/images/food/no_order.jpg" class="example-image-link" data-lightbox="example-set"><img class="img-fluid example-image" src="https://storage.cloud.google.com/treebucket2021/images/food/no_order.jpg" style='height: 220px; width: auto; object-fit: contain'></a>
-                </div>
-                <br>
-                <div class="alert alert-danger" role="alert">本週是{{order_owner}}開團</div>
-              </div>
-              {% endif %}
               <div class="card-footer" style="text-align:right;">
                 <a href="{{ url_for('food_order') }}" style="color:#00B050;">More </a>
               </div>
@@ -137,7 +133,7 @@
                   {% for t in testimonials_list %}
                   <div class="testimonial">
                     <div class="pic">
-                        <img src="{{ url_for('static', filename=t[4])}}" alt=""/>
+                        <img style="background-size: cover;width: 80px;height: 80px;" src="{{t[4]}}" alt=""/>
                     </div>
                     
                     <div class="testimonial-review">
